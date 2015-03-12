@@ -15,15 +15,21 @@
  */
 package com.sibvisions.kitchensink.samples.layouts;
 
+import javax.rad.genui.component.UILabel;
 import javax.rad.genui.container.UIDesktopPanel;
 import javax.rad.genui.container.UIInternalFrame;
 import javax.rad.genui.container.UIPanel;
+import javax.rad.genui.control.UIEditor;
 import javax.rad.genui.layout.UIBorderLayout;
+import javax.rad.genui.layout.UIFormLayout;
+import javax.rad.model.IDataBook;
+import javax.rad.model.IDataRow;
 import javax.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.Tango;
 import com.sibvisions.kitchensink.samples.AbstractSample;
+import com.sibvisions.rad.model.mem.MemDataBook;
 
 /**
  * Shows the MDI (multi-document interface) system that is available in JVx.
@@ -77,9 +83,33 @@ public class MdiSample extends AbstractSample implements ISample
 		borderFrame.pack();
 		borderFrame.setVisible(true);
 		
+		IDataBook controlsBook = new MemDataBook();
+		controlsBook.getRowDefinition().addColumnDefinition(createBooleanColumn("TAB_MODE"));
+		controlsBook.setName("CONTROLS");
+		controlsBook.open();
+		
+		controlsBook.insert(false);
+		controlsBook.setValue("TAB_MODE", Boolean.valueOf(desktop.isTabMode()));
+		
+		controlsBook.eventValuesChanged().addListener(pDataRowEvent ->
+		{
+			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
+			
+			desktop.setTabMode(((Boolean) dataRow.getValue("TAB_MODE")).booleanValue());
+		});
+		
+		UIFormLayout controlsLayout = new UIFormLayout();
+		controlsLayout.setNewlineCount(4);
+		
+		UIPanel controls = new UIPanel();
+		controls.setLayout(controlsLayout);
+		controls.add(new UILabel("Tab Mode"));
+		controls.add(new UIEditor(controlsBook, "TAB_MODE"));
+		
 		UIPanel content = new UIPanel();
 		content.setLayout(new UIBorderLayout());
 		content.add(desktop, UIBorderLayout.CENTER);
+		content.add(controls, UIBorderLayout.SOUTH);
 		
 		return content;
 	}
