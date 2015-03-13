@@ -19,13 +19,16 @@ import javax.rad.genui.component.UILabel;
 import javax.rad.genui.container.UIDesktopPanel;
 import javax.rad.genui.container.UIInternalFrame;
 import javax.rad.genui.container.UIPanel;
+import javax.rad.genui.container.UISplitPanel;
 import javax.rad.genui.control.UIEditor;
+import javax.rad.genui.control.UITable;
 import javax.rad.genui.layout.UIBorderLayout;
 import javax.rad.genui.layout.UIFormLayout;
 import javax.rad.model.ColumnDefinition;
 import javax.rad.model.IDataBook;
 import javax.rad.model.IDataRow;
 import javax.rad.model.datatype.BooleanDataType;
+import javax.rad.ui.container.IDesktopPanel;
 import javax.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
@@ -65,18 +68,16 @@ public class MdiSample extends AbstractSample implements ISample
 		// in JVx, with the exception that they can/should only be added to
 		// a UIDesktopPanel.
 		
+		IDataBook eventsDataBook = createEventsDataBook();
+		
 		// Our first internal frame/window.
-		UIInternalFrame labelFrame = new UIInternalFrame(desktop);
-		labelFrame.setLayout(new UIBorderLayout());
-		labelFrame.setTitle("Label");
+		UIInternalFrame labelFrame = createInternalFrame(desktop, "Label", eventsDataBook);
 		labelFrame.add(createCenteredLabel("This is a simple window.", Tango.BUTTER_1));
 		labelFrame.pack();
 		labelFrame.setVisible(true);
 		
 		// Our second internal frame/window.
-		UIInternalFrame borderFrame = new UIInternalFrame(desktop);
-		borderFrame.setLayout(new UIBorderLayout());
-		borderFrame.setTitle("Border");
+		UIInternalFrame borderFrame = createInternalFrame(desktop, "Border", eventsDataBook);
 		borderFrame.add(createCenteredLabel("North", Tango.BUTTER_1), UIBorderLayout.NORTH);
 		borderFrame.add(createCenteredLabel("West", Tango.CHAMELEON_1), UIBorderLayout.WEST);
 		borderFrame.add(createCenteredLabel("South", Tango.SKY_BLUE_1), UIBorderLayout.SOUTH);
@@ -113,9 +114,16 @@ public class MdiSample extends AbstractSample implements ISample
 		controls.add(new UILabel("Navigation Keys"));
 		controls.add(new UIEditor(controlsBook, "NAVIGATION_KEYS"));
 		
+		UITable eventsTable = new UITable(eventsDataBook);
+		
+		UISplitPanel mainPanel = new UISplitPanel();
+		mainPanel.setDividerAlignment(UISplitPanel.DIVIDER_BOTTOM_RIGHT);
+		mainPanel.setFirstComponent(desktop);
+		mainPanel.setSecondComponent(eventsTable);
+		
 		UIPanel content = new UIPanel();
 		content.setLayout(new UIBorderLayout());
-		content.add(desktop, UIBorderLayout.CENTER);
+		content.add(mainPanel, UIBorderLayout.CENTER);
 		content.add(controls, UIBorderLayout.SOUTH);
 		
 		return content;
@@ -128,6 +136,39 @@ public class MdiSample extends AbstractSample implements ISample
 	public String getName()
 	{
 		return "MDI";
+	}
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// User-defined methods
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	/**
+	 * Creates an {@link UIInternalFrame}.
+	 * 
+	 * @param pDesktopPanel the {@link IDesktopPanel}.
+	 * @param pTitle the title.
+	 * @param pEventsDataBook the {@link IDataBook} for events.
+	 * @return the {@link UIInternalFrame}.
+	 */
+	private UIInternalFrame createInternalFrame(IDesktopPanel pDesktopPanel, String pTitle, IDataBook pEventsDataBook)
+	{
+		UIInternalFrame frame = new UIInternalFrame(pDesktopPanel);
+		frame.setLayout(new UIBorderLayout());
+		frame.setTitle(pTitle);
+		
+		frame.eventWindowActivated().addListener(pWindowEvent -> insertEvent(pEventsDataBook, pTitle + ": Window Activated"));
+		frame.eventWindowClosed().addListener(pWindowEvent -> insertEvent(pEventsDataBook, pTitle + ": Window Closed"));
+		frame.eventWindowClosing().addListener(pWindowEvent ->
+		{
+			insertEvent(pEventsDataBook, pTitle + ": Window Closing");
+			frame.dispose();
+		});
+		frame.eventWindowDeactivated().addListener(pWindowEvent -> insertEvent(pEventsDataBook, pTitle + ": Window Deactivated"));
+		frame.eventWindowDeiconified().addListener(pWindowEvent -> insertEvent(pEventsDataBook, pTitle + ": Window Deiconified"));
+		frame.eventWindowIconified().addListener(pWindowEvent -> insertEvent(pEventsDataBook, pTitle + ": Window Iconified"));
+		frame.eventWindowOpened().addListener(pWindowEvent -> insertEvent(pEventsDataBook, pTitle + ": Window Opened"));
+		
+		return frame;
 	}
 	
 }	// MdiSample
