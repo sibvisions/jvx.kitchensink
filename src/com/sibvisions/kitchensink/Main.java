@@ -16,6 +16,8 @@
 package com.sibvisions.kitchensink;
 
 import javax.rad.genui.UIFactoryManager;
+import javax.rad.genui.celleditor.UICheckBoxCellEditor;
+import javax.rad.ui.IFactory;
 
 /**
  * The main class.
@@ -57,6 +59,9 @@ public final class Main
 			// threading).
 			UIFactoryManager.getFactoryInstance(factoryClass);
 			
+			// Register the default cell editors.
+			registerDefaultCellEditors();
+			
 			// The invokeAndWait(Runnable) call is necessary so that we are
 			// on the UI thread of the specified technology.
 			UIFactoryManager.getFactory().invokeAndWait(() -> {
@@ -79,6 +84,18 @@ public final class Main
 			
 			System.exit(1);
 		}
+	}
+	
+	/**
+	 * Registers the default cell editors.
+	 */
+	private static void registerDefaultCellEditors()
+	{
+		IFactory factory =UIFactoryManager.getFactory();
+		
+		UICheckBoxCellEditor checkBoxCellEditor = new UICheckBoxCellEditor(Boolean.TRUE, Boolean.FALSE);
+		checkBoxCellEditor.setText("");
+		factory.setDefaultCellEditor(Boolean.class, checkBoxCellEditor);
 	}
 	
 }	// Main

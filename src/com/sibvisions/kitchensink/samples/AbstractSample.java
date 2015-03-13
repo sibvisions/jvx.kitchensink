@@ -20,13 +20,10 @@ import java.util.Date;
 
 import javax.rad.genui.UIColor;
 import javax.rad.genui.UIImage;
-import javax.rad.genui.celleditor.UICheckBoxCellEditor;
 import javax.rad.genui.component.UILabel;
 import javax.rad.model.ColumnDefinition;
 import javax.rad.model.IDataBook;
 import javax.rad.model.ModelException;
-import javax.rad.model.datatype.BooleanDataType;
-import javax.rad.model.datatype.IDataType;
 import javax.rad.model.datatype.StringDataType;
 import javax.rad.model.datatype.TimestampDataType;
 import javax.rad.model.ui.ICellEditor;
@@ -50,26 +47,6 @@ public abstract class AbstractSample implements ISample
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// User-defined methods
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	/**
-	 * Creates a new {@link ColumnDefinition} with a boolean data type and cell
-	 * editor.
-	 * 
-	 * @param pName the name of the column.
-	 * @return the {@link ColumnDefinition}.
-	 */
-	protected ColumnDefinition createBooleanColumn(String pName)
-	{
-		UICheckBoxCellEditor cellEditor = new UICheckBoxCellEditor(Boolean.TRUE, Boolean.FALSE);
-		cellEditor.setText("");
-		
-		IDataType dataType = new BooleanDataType(cellEditor);
-		
-		ColumnDefinition columnDefinition = new ColumnDefinition(pName, dataType);
-		columnDefinition.setNullable(false);
-		
-		return columnDefinition;
-	}
 	
 	/**
 	 * Creates an {@link UILabel} which has the text centered.

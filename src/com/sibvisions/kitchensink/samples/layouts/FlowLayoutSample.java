@@ -29,6 +29,7 @@ import javax.rad.model.IDataBook;
 import javax.rad.model.IDataRow;
 import javax.rad.model.ModelException;
 import javax.rad.model.datatype.BigDecimalDataType;
+import javax.rad.model.datatype.BooleanDataType;
 import javax.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
@@ -85,7 +86,7 @@ public class FlowLayoutSample extends AbstractSample implements ISample
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("MARGIN_RIGHT", new BigDecimalDataType()));
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("MARGIN_TOP", new BigDecimalDataType()));
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("VERTICAL_GAP", new BigDecimalDataType()));
-		controlsBook.getRowDefinition().addColumnDefinition(createBooleanColumn("WRAP"));
+		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("WRAP", new BooleanDataType()));
 		controlsBook.setName("CONTROLS");
 		controlsBook.open();
 		

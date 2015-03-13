@@ -22,8 +22,10 @@ import javax.rad.genui.container.UIPanel;
 import javax.rad.genui.control.UIEditor;
 import javax.rad.genui.layout.UIBorderLayout;
 import javax.rad.genui.layout.UIFormLayout;
+import javax.rad.model.ColumnDefinition;
 import javax.rad.model.IDataBook;
 import javax.rad.model.IDataRow;
+import javax.rad.model.datatype.BooleanDataType;
 import javax.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
@@ -84,8 +86,8 @@ public class MdiSample extends AbstractSample implements ISample
 		borderFrame.setVisible(true);
 		
 		IDataBook controlsBook = new MemDataBook();
-		controlsBook.getRowDefinition().addColumnDefinition(createBooleanColumn("TAB_MODE"));
-		controlsBook.getRowDefinition().addColumnDefinition(createBooleanColumn("NAVIGATION_KEYS"));
+		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("TAB_MODE", new BooleanDataType()));
+		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("NAVIGATION_KEYS", new BooleanDataType()));
 		controlsBook.setName("CONTROLS");
 		controlsBook.open();
 		
