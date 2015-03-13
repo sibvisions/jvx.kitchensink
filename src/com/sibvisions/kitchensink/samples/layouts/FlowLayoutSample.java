@@ -85,7 +85,6 @@ public class FlowLayoutSample extends AbstractSample implements ISample
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("MARGIN_LEFT", new BigDecimalDataType()));
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("MARGIN_RIGHT", new BigDecimalDataType()));
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("MARGIN_TOP", new BigDecimalDataType()));
-		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("SQUARE", new BooleanDataType()));
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("VERTICAL_GAP", new BigDecimalDataType()));
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("WRAP", new BooleanDataType()));
 		controlsBook.setName("CONTROLS");
