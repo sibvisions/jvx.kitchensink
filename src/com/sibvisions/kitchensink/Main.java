@@ -59,12 +59,11 @@ public final class Main
 			// threading).
 			UIFactoryManager.getFactoryInstance(factoryClass);
 			
-			// Register the default cell editors.
-			registerDefaultCellEditors();
-			
 			// The invokeAndWait(Runnable) call is necessary so that we are
 			// on the UI thread of the specified technology.
 			UIFactoryManager.getFactory().invokeAndWait(() -> {
+				// Register the default cell editors.
+				registerDefaultCellEditors();
 				
 				// Create the main frame.
 				KitchenSinkFrame frame = new KitchenSinkFrame();
