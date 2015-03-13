@@ -85,17 +85,20 @@ public class MdiSample extends AbstractSample implements ISample
 		
 		IDataBook controlsBook = new MemDataBook();
 		controlsBook.getRowDefinition().addColumnDefinition(createBooleanColumn("TAB_MODE"));
+		controlsBook.getRowDefinition().addColumnDefinition(createBooleanColumn("NAVIGATION_KEYS"));
 		controlsBook.setName("CONTROLS");
 		controlsBook.open();
 		
 		controlsBook.insert(false);
 		controlsBook.setValue("TAB_MODE", Boolean.valueOf(desktop.isTabMode()));
+		controlsBook.setValue("NAVIGATION_KEYS", Boolean.valueOf(desktop.isNavigationKeysEnabled()));
 		
 		controlsBook.eventValuesChanged().addListener(pDataRowEvent ->
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
 			desktop.setTabMode(((Boolean) dataRow.getValue("TAB_MODE")).booleanValue());
+			desktop.setNavigationKeysEnabled(((Boolean) dataRow.getValue("NAVIGATION_KEYS")).booleanValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();
@@ -105,6 +108,8 @@ public class MdiSample extends AbstractSample implements ISample
 		controls.setLayout(controlsLayout);
 		controls.add(new UILabel("Tab Mode"));
 		controls.add(new UIEditor(controlsBook, "TAB_MODE"));
+		controls.add(new UILabel("Navigation Keys"));
+		controls.add(new UIEditor(controlsBook, "NAVIGATION_KEYS"));
 		
 		UIPanel content = new UIPanel();
 		content.setLayout(new UIBorderLayout());
