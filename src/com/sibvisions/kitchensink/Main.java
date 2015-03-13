@@ -61,7 +61,8 @@ public final class Main
 			
 			// The invokeAndWait(Runnable) call is necessary so that we are
 			// on the UI thread of the specified technology.
-			UIFactoryManager.getFactory().invokeAndWait(() -> {
+			UIFactoryManager.getFactory().invokeAndWait(() ->
+			{
 				// Register the default cell editors.
 				registerDefaultCellEditors();
 				
