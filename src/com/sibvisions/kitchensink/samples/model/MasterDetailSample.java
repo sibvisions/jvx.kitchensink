@@ -124,7 +124,7 @@ public class MasterDetailSample extends AbstractSample implements ISample
 		UITree tree = new UITree();
 		tree.setDataBooks(masterDataBook, detailDataBook, detailDetailDataBook);
 		
-		UIGridLayout contentLayout = new UIGridLayout(3, 1);
+		UIGridLayout contentLayout = new UIGridLayout(4, 1);
 		
 		UIPanel content = new UIPanel();
 		content.setLayout(contentLayout);
