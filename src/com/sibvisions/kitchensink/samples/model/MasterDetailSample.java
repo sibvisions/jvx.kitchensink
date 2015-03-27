@@ -18,10 +18,8 @@ package com.sibvisions.kitchensink.samples.model;
 import java.math.BigDecimal;
 
 import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.container.UITabsetPanel;
 import javax.rad.genui.control.UITable;
 import javax.rad.genui.control.UITree;
-import javax.rad.genui.layout.UIBorderLayout;
 import javax.rad.genui.layout.UIGridLayout;
 import javax.rad.model.ColumnDefinition;
 import javax.rad.model.IDataBook;
@@ -123,28 +121,17 @@ public class MasterDetailSample extends AbstractSample implements ISample
 		UITable detailDetailTable = new UITable(detailDetailDataBook);
 		detailDetailTable.setEditable(false);
 		
-		UIGridLayout tablePanelLayout = new UIGridLayout(3, 1);
-		
-		UIPanel tablePanel = new UIPanel();
-		tablePanel.setLayout(tablePanelLayout);
-		tablePanel.add(masterTable, tablePanelLayout.getConstraints(0, 0));
-		tablePanel.add(detailTable, tablePanelLayout.getConstraints(1, 0));
-		tablePanel.add(detailDetailTable, tablePanelLayout.getConstraints(2, 0));
-		
 		UITree tree = new UITree();
 		tree.setDataBooks(masterDataBook, detailDataBook, detailDetailDataBook);
 		
-		UIPanel treePanel = new UIPanel();
-		treePanel.setLayout(new UIBorderLayout());
-		treePanel.add(tree, UIBorderLayout.CENTER);
-		
-		UITabsetPanel tabset = new UITabsetPanel();
-		tabset.add(tablePanel, "Tables");
-		tabset.add(treePanel, "Tree");
+		UIGridLayout contentLayout = new UIGridLayout(3, 1);
 		
 		UIPanel content = new UIPanel();
-		content.setLayout(new UIBorderLayout());
-		content.add(tabset, UIBorderLayout.CENTER);
+		content.setLayout(contentLayout);
+		content.add(masterTable, contentLayout.getConstraints(0, 0));
+		content.add(detailTable, contentLayout.getConstraints(1, 0));
+		content.add(detailDetailTable, contentLayout.getConstraints(2, 0));
+		content.add(tree, contentLayout.getConstraints(3, 0));
 		
 		return content;
 	}
