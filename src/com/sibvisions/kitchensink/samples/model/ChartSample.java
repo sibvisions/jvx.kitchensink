@@ -31,7 +31,6 @@ import javax.rad.ui.container.IPanel;
 import javax.rad.ui.control.IChart;
 
 import com.sibvisions.kitchensink.ISample;
-import com.sibvisions.kitchensink.Tango;
 import com.sibvisions.kitchensink.samples.AbstractSample;
 import com.sibvisions.rad.model.mem.MemDataBook;
 
@@ -42,19 +41,6 @@ import com.sibvisions.rad.model.mem.MemDataBook;
  */
 public class ChartSample extends AbstractSample implements ISample
 {
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Class members
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	/**
-	 * The counter used to keep track of how many rows we've already inserted.
-	 * <p/>
-	 * Note that this is only a quick and dirty way to keep track of the number
-	 * of inserted rows, as it simplifies the inserting code (further down)
-	 * a little.
-	 */
-	private int rowCounter = 0;
-	
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Interface implementation
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,7 +87,6 @@ public class ChartSample extends AbstractSample implements ISample
 		UIGridLayout contentLayout = new UIGridLayout(2, 2);
 		
 		UIPanel content = new UIPanel();
-		content.setBackground(Tango.ALUMINIUM_1);
 		content.setLayout(contentLayout);
 		content.add(createChart(dataBook, "Area", UIChart.STYLE_AREA), contentLayout.getConstraints(0, 0));
 		content.add(createChart(dataBook, "Bars", UIChart.STYLE_BARS), contentLayout.getConstraints(1, 0));
