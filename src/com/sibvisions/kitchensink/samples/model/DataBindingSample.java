@@ -22,6 +22,7 @@ import javax.rad.genui.celleditor.UICheckBoxCellEditor;
 import javax.rad.genui.celleditor.UIChoiceCellEditor;
 import javax.rad.genui.celleditor.UIDateCellEditor;
 import javax.rad.genui.celleditor.UILinkedCellEditor;
+import javax.rad.genui.celleditor.UINumberCellEditor;
 import javax.rad.genui.celleditor.UITextCellEditor;
 import javax.rad.genui.component.UILabel;
 import javax.rad.genui.container.UIPanel;
@@ -116,6 +117,7 @@ public class DataBindingSample extends AbstractSample implements ISample
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("BOOLEAN", booleanDataType));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("CHOICE", new StringDataType(choiceCellEditor)));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("DATETIME", new TimestampDataType(new UIDateCellEditor("dd.MM.yyyy"))));
+		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("NUMBER", new BigDecimalDataType(new UINumberCellEditor())));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("TYPE_ID", new BigDecimalDataType()));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("TYPE_NAME", new StringDataType(new UILinkedCellEditor(referenceDefinition))));
 		dataBook.setName("DATABINDING");
@@ -130,6 +132,7 @@ public class DataBindingSample extends AbstractSample implements ISample
 		dataBook.setValue("DATETIME", new Date());
 		dataBook.setValue("TYPE_ID", BigDecimal.valueOf(1));
 		dataBook.setValue("TYPE_NAME", "Primitive");
+		dataBook.setValue("NUMBER", BigDecimal.valueOf(88956));
 		
 		dataBook.insert(false);
 		dataBook.setValue("ID", BigDecimal.valueOf(2));
@@ -139,6 +142,7 @@ public class DataBindingSample extends AbstractSample implements ISample
 		dataBook.setValue("DATETIME", null);
 		dataBook.setValue("TYPE_ID", BigDecimal.valueOf(3));
 		dataBook.setValue("TYPE_NAME", "Hyper");
+		dataBook.setValue("NUMBER", BigDecimal.valueOf(47.2366));
 		
 		dataBook.saveAllRows();
 		
@@ -157,6 +161,7 @@ public class DataBindingSample extends AbstractSample implements ISample
 		addEditor(editorsPane, dataBook, "STRING");
 		addEditor(editorsPane, dataBook, "CHOICE");
 		addEditor(editorsPane, dataBook, "DATETIME");
+		addEditor(editorsPane, dataBook, "NUMBER");
 		addEditor(editorsPane, dataBook, "TYPE_ID");
 		addEditor(editorsPane, dataBook, "TYPE_NAME");
 		
