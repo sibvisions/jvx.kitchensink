@@ -115,7 +115,9 @@ public class ChartSample extends AbstractSample implements ISample
 		chart.setChartStyle(pChartStyle);
 		chart.setDataBook(pDataBook);
 		chart.setTitle(pTitle);
+		chart.setXAxisTitle("Date");
 		chart.setXColumnName("TIMESTAMP");
+		chart.setYAxisTitle("Value");
 		chart.setYColumnNames(new String[] { "VALUE", "VALUEB" });
 		
 		return chart;
