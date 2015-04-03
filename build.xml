@@ -1,28 +1,72 @@
-<project name="jvx.kitchensink" default="build" basedir=".">
+<project name="jvx.kitchensink" default="start.complete">
+
+	<!--
+		*****************************************************************
+		* information
+		*****************************************************************
+		-->
+
 	<description>
 		A showcase application for the JVx Enterprise Application Framework.
 	</description>
-	
-	<property name="src" value="src" />
-	<property name="classes" value="classes" />
-	<property name="build" value="build" />
-	
-	<target name="clean" description="Cleans the working directory from everything build related">
-		<delete dir="${clases}" />
-		<delete dir="${build}" />
+
+	<!--
+		*****************************************************************
+		* global properties
+		*****************************************************************
+		-->
+
+	<property name="jar.name" value="jvx-kitchensink.jar" />
+
+	<!--
+		*****************************************************************
+		* general properties
+		*****************************************************************
+		-->
+
+	<property name="build" value="${basedir}/build" />
+	<property name="temp" location="${build}/temp" />
+	<property name="release" location="${build}/release" />
+	<property name="src" value="${basedir}/src" />
+	<property name="classes" value="${temp}/classes" />
+
+	<!--
+		*****************************************************************
+		* INTERNAL TASKS
+		*****************************************************************
+		-->
+
+	<target name="clean.start">
+		<delete dir="${temp}" />
+		<delete dir="${release}" />
 	</target>
 	
-	<target name="init" description="Sets up the current working directory.">
-		<mkdir dir="${classes}" />
+	<target name="clean.stop">
+		<delete dir="${temp}" />
+	</target>
+	
+	<target name="compile">
 		<mkdir dir="${build}" />
+		<mkdir dir="${classes}" />
+		<javac srcdir="${src}" destdir="${classes}" classpath="lib/jvx.jar" includeantruntime="false" source="1.8" />
+		
+		<mkdir dir="${temp}/META-INF" />
+		<manifest file="${temp}/META-INF/MANIFEST.MF">
+			<attribute name="Main-Class" value="com.sibvisions.kitchensink.Main" />
+		</manifest>
 	</target>
 	
-	<target name="compile" depends="init" description="Compiles all source files.">
-		<javac srcdir="${src}" destdir="${classes}" includeantruntime="false" source="1.8" />
+	<target name="jar" depends="compile">
+		<mkdir dir="${release}" />
+		<jar jarfile="${release}/${jar.name}" basedir="${classes}" manifest="${temp}/META-INF/MANIFEST.MF" />
+		<copy file="lib/jvx.jar" todir="${release}" />
 	</target>
-	
-	<target name="build" depends="compile" description="Creates the jar.">
-		<jar jarfile="${build}/jvx.kitchensink.jar" basedir="${classes}" />
-		<copy file="lib/jvx.jar" todir="${build}" />
-	</target>
+
+	<!--
+		*****************************************************************
+		* PUBLIC START TASKS
+		*****************************************************************
+		-->
+
+	<target name="start.complete" depends="clean.start, jar, clean.stop" description="Creates release library" />
 </project>

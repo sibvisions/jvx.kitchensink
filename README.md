@@ -7,14 +7,11 @@ available in the [JVx Enterprise Application Framework][JVx].
 
 # Usage
 
-Simply run it with the provided launcher.
-
-In any other case the `Main` class is located in
-the `com.sibvisions.kitchensink` package.
+Simply run it with the provided launcher or build the jar and start that.
 
 By default the Swing factory is created and used, to use another factory
 simply pass the fully qualified name of the factory to the main method
-as argument.
+as argument
 
 
  [JVx]: http://www.sibvisions.com/jvx
