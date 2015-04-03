@@ -14,7 +14,7 @@ is created and used, to use another factory simply pass the fully qualified
 name of the factory to the main method as argument, e.g.
 
 <pre>
-java com.sibvisions.kitchensink.Main com.sibvisions.rad.ui.javafx.impl.FXFactory
+java -cp jvx.jar;jvxfx.jar;... com.sibvisions.kitchensink.Main com.sibvisions.rad.ui.javafx.impl.FXFactory
 </pre>
 
 
