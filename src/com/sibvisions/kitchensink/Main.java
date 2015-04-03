@@ -18,6 +18,7 @@ package com.sibvisions.kitchensink;
 import javax.rad.genui.UIFactoryManager;
 import javax.rad.genui.celleditor.UICheckBoxCellEditor;
 import javax.rad.ui.IFactory;
+import javax.swing.UIManager;
 
 /**
  * The main class.
@@ -43,16 +44,19 @@ public final class Main
 		
 		try
 		{
-			// We'll use by default the Swing factory, but will try to get
-			// the factory class from the arguments provided.
-			String factoryClassName = "com.sibvisions.rad.ui.swing.impl.SwingFactory";
-			if (args.length > 0)
-			{
-				factoryClassName = args[0];
-			}
+			Class<?> factoryClass;
 			
-			// Load the class.
-			Class<?> factoryClass = Main.class.getClassLoader().loadClass(factoryClassName);
+			try
+			{
+				// Use provided factory and fall-back to Swing
+				factoryClass = Main.class.getClassLoader().loadClass(args[0]);
+			}
+			catch (Exception e)
+			{
+				factoryClass = Main.class.getClassLoader().loadClass("com.sibvisions.rad.ui.swing.impl.SwingFactory");
+				
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
 			
 			// This will set and initialize the factory that is used by JVx
 			// for creating all the GUI controls (and some other stuff, like
