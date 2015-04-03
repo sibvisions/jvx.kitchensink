@@ -68,5 +68,5 @@
 		*****************************************************************
 		-->
 
-	<target name="start.complete" depends="clean.start, jar, clean.stop" description="Creates release library" />
+	<target name="start.complete" depends="clean.start, jar, clean.stop" description="Creates the release jar" />
 </project>
