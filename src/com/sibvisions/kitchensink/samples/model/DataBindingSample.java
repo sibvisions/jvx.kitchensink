@@ -25,6 +25,7 @@ import javax.rad.genui.celleditor.UILinkedCellEditor;
 import javax.rad.genui.celleditor.UINumberCellEditor;
 import javax.rad.genui.celleditor.UITextCellEditor;
 import javax.rad.genui.component.UILabel;
+import javax.rad.genui.component.UIToggleButton;
 import javax.rad.genui.container.UIPanel;
 import javax.rad.genui.container.UISplitPanel;
 import javax.rad.genui.control.UIEditor;
@@ -170,9 +171,29 @@ public class DataBindingSample extends AbstractSample implements ISample
 		splitPanel.setFirstComponent(table);
 		splitPanel.setSecondComponent(editorsPane);
 		
+		UIToggleButton readOnlyToggleButton = new UIToggleButton("Read-Only");
+		readOnlyToggleButton.eventAction().addListener((pActionEvent) ->
+		{
+			try
+			{
+				dataBook.setReadOnly(readOnlyToggleButton.isSelected());
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		});
+		
+		UIFormLayout controlsLayout = new UIFormLayout();
+		
+		UIPanel controls = new UIPanel();
+		controls.setLayout(controlsLayout);
+		controls.add(readOnlyToggleButton, controlsLayout.getConstraints(0, 0));
+		
 		UIPanel content = new UIPanel();
 		content.setLayout(new UIBorderLayout());
 		content.add(splitPanel, UIBorderLayout.CENTER);
+		content.add(controls, UIBorderLayout.SOUTH);
 		
 		return content;
 	}
