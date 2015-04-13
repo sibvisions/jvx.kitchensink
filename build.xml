@@ -40,25 +40,26 @@
 		<delete dir="${temp}" />
 		<delete dir="${release}" />
 	</target>
-	
+
 	<target name="clean.stop">
 		<delete dir="${temp}" />
 	</target>
-	
+
 	<target name="compile">
 		<mkdir dir="${build}" />
 		<mkdir dir="${classes}" />
 		<javac srcdir="${src}" destdir="${classes}" classpath="lib/jvx.jar" includeantruntime="false" source="1.8" />
-		
-		<mkdir dir="${temp}/META-INF" />
-		<manifest file="${temp}/META-INF/MANIFEST.MF">
-			<attribute name="Main-Class" value="com.sibvisions.kitchensink.Main" />
-		</manifest>
 	</target>
-	
+
 	<target name="jar" depends="compile">
 		<mkdir dir="${release}" />
-		<jar jarfile="${release}/${jar.name}" basedir="${classes}" manifest="${temp}/META-INF/MANIFEST.MF" />
+		<jar jarfile="${release}/${jar.name}" basedir="${classes}">
+			<manifest>
+				<attribute name="Implementation-Title" value="JVx Kitchensink" />
+				<attribute name="Implementation-Vendor" value="SIB Visions GmbH" />
+				<attribute name="Main-Class" value="com.sibvisions.kitchensink.Main" />
+			</manifest>
+		</jar>
 		<copy file="lib/jvx.jar" todir="${release}" />
 	</target>
 
