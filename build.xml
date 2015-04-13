@@ -49,6 +49,16 @@
 		<mkdir dir="${build}" />
 		<mkdir dir="${classes}" />
 		<javac srcdir="${src}" destdir="${classes}" classpath="lib/jvx.jar" includeantruntime="false" source="1.8" />
+
+		<copy todir="${classes}">
+			<fileset dir="${src}">
+				<include name="**/**" />
+
+				<exclude name="**/*.java" />
+				<exclude name="**/package.html" />
+				<exclude name="META-INF/**" />
+			</fileset>
+		</copy>
 	</target>
 
 	<target name="jar" depends="compile">
