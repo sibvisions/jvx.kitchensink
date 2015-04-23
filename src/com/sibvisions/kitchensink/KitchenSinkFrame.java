@@ -39,6 +39,7 @@ import com.sibvisions.kitchensink.samples.components.TextFieldSample;
 import com.sibvisions.kitchensink.samples.components.ToggleButtonSample;
 import com.sibvisions.kitchensink.samples.components.ToolBarSample;
 import com.sibvisions.kitchensink.samples.containers.GroupPanelSample;
+import com.sibvisions.kitchensink.samples.containers.MdiSample;
 import com.sibvisions.kitchensink.samples.containers.PanelSample;
 import com.sibvisions.kitchensink.samples.containers.ScrollPanelSample;
 import com.sibvisions.kitchensink.samples.containers.SplitPanelSample;
@@ -47,7 +48,6 @@ import com.sibvisions.kitchensink.samples.layouts.BorderLayoutSample;
 import com.sibvisions.kitchensink.samples.layouts.FlowLayoutSample;
 import com.sibvisions.kitchensink.samples.layouts.FormLayoutSample;
 import com.sibvisions.kitchensink.samples.layouts.GridLayoutSample;
-import com.sibvisions.kitchensink.samples.layouts.MdiSample;
 import com.sibvisions.kitchensink.samples.layouts.NullLayoutSample;
 import com.sibvisions.kitchensink.samples.model.ChartSample;
 import com.sibvisions.kitchensink.samples.model.DataBindingSample;
@@ -120,6 +120,7 @@ public class KitchenSinkFrame extends UIFrame
 		
 		// Containers
 		samples.add(new GroupPanelSample());
+		samples.add(new MdiSample());
 		samples.add(new PanelSample());
 		samples.add(new ScrollPanelSample());
 		samples.add(new SplitPanelSample());
@@ -130,7 +131,6 @@ public class KitchenSinkFrame extends UIFrame
 		samples.add(new FlowLayoutSample());
 		samples.add(new FormLayoutSample());
 		samples.add(new GridLayoutSample());
-		samples.add(new MdiSample());
 		samples.add(new NullLayoutSample());
 		
 		// Model

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.sibvisions.kitchensink.samples.layouts;
+package com.sibvisions.kitchensink.samples.containers;
 
 import javax.rad.genui.component.UILabel;
 import javax.rad.genui.container.UIDesktopPanel;
@@ -53,7 +53,7 @@ public class MdiSample extends AbstractSample implements ISample
 	@Override
 	public String getCategory()
 	{
-		return "Layouts";
+		return "Containers";
 	}
 	
 	/**
