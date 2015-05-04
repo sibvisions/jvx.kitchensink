@@ -15,8 +15,13 @@
  */
 package com.sibvisions.kitchensink;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 import javax.rad.genui.UIFactoryManager;
 import javax.rad.genui.celleditor.UICheckBoxCellEditor;
+import javax.rad.genui.celleditor.UIDateCellEditor;
+import javax.rad.genui.celleditor.UINumberCellEditor;
 import javax.rad.ui.IFactory;
 import javax.swing.UIManager;
 
@@ -95,11 +100,16 @@ public final class Main
 	 */
 	private static void registerDefaultCellEditors()
 	{
-		IFactory factory =UIFactoryManager.getFactory();
+		IFactory factory = UIFactoryManager.getFactory();
 		
 		UICheckBoxCellEditor checkBoxCellEditor = new UICheckBoxCellEditor(Boolean.TRUE, Boolean.FALSE);
 		checkBoxCellEditor.setText("");
 		factory.setDefaultCellEditor(Boolean.class, checkBoxCellEditor);
+		
+		UIDateCellEditor dateCellEditor = new UIDateCellEditor("dd.MM.yyyy HH:mm:ss");
+		factory.setDefaultCellEditor(Timestamp.class, dateCellEditor);
+		
+		factory.setDefaultCellEditor(BigDecimal.class, new UINumberCellEditor());
 	}
 	
 }	// Main
