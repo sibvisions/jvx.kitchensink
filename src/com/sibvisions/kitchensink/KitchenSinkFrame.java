@@ -53,6 +53,7 @@ import com.sibvisions.kitchensink.samples.model.ChartSample;
 import com.sibvisions.kitchensink.samples.model.DataBindingSample;
 import com.sibvisions.kitchensink.samples.model.MasterDetailSample;
 import com.sibvisions.kitchensink.samples.model.SelfJoinedSample;
+import com.sibvisions.kitchensink.samples.model.StyledTableSample;
 import com.sibvisions.kitchensink.samples.model.StyledTreeSample;
 import com.sibvisions.kitchensink.samples.other.CaptureSample;
 import com.sibvisions.kitchensink.samples.other.CursorSample;
@@ -139,6 +140,7 @@ public class KitchenSinkFrame extends UIFrame
 		samples.add(new DataBindingSample());
 		samples.add(new MasterDetailSample());
 		samples.add(new SelfJoinedSample());
+		samples.add(new StyledTableSample());
 		samples.add(new StyledTreeSample());
 		
 		// Other
