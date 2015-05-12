@@ -18,9 +18,10 @@ package com.sibvisions.kitchensink.samples.model;
 import java.math.BigDecimal;
 
 import javax.rad.genui.container.UIPanel;
+import javax.rad.genui.container.UISplitPanel;
 import javax.rad.genui.control.UITable;
 import javax.rad.genui.control.UITree;
-import javax.rad.genui.layout.UIGridLayout;
+import javax.rad.genui.layout.UIBorderLayout;
 import javax.rad.model.ColumnDefinition;
 import javax.rad.model.IDataBook;
 import javax.rad.model.ModelException;
@@ -110,12 +111,13 @@ public class MasterDetail2Sample extends AbstractSample implements ISample
 		UITable table = new UITable(detailDataBook);
 		table.setEditable(false);
 		
-		UIGridLayout contentLayout = new UIGridLayout(2, 1);
+		UISplitPanel container = new UISplitPanel();
+		container.add(tree, UISplitPanel.FIRST_COMPONENT);
+		container.add(table, UISplitPanel.SECOND_COMPONENT);
 		
 		UIPanel content = new UIPanel();
-		content.setLayout(contentLayout);
-		content.add(tree, contentLayout.getConstraints(0, 0));
-		content.add(table, contentLayout.getConstraints(1, 0));
+		content.setLayout(new UIBorderLayout());
+		content.add(container, UIBorderLayout.CENTER);
 		
 		return content;
 	}
