@@ -17,6 +17,7 @@ package com.sibvisions.kitchensink.samples.components;
 
 import java.math.BigDecimal;
 
+import javax.rad.genui.UIColor;
 import javax.rad.genui.component.UILabel;
 import javax.rad.genui.component.UITextField;
 import javax.rad.genui.container.UIPanel;
@@ -63,9 +64,15 @@ public class TextFieldSample extends AbstractSample implements ISample
 		UITextField textField = new UITextField("This is some text.");
 		textField.setColumns(15);
 		
+		UITextField coloredTextField = new UITextField("This is some text.");
+		coloredTextField.setBackground(UIColor.yellow);
+		coloredTextField.setColumns(15);
+		coloredTextField.setForeground(UIColor.magenta);
+		
 		UIPanel container = new UIPanel();
 		container.setLayout(new UIFormLayout());
 		container.add(textField);
+		container.add(coloredTextField);
 		
 		IDataBook controlsBook = new MemDataBook();
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("BORDER", new BooleanDataType()));
@@ -88,6 +95,11 @@ public class TextFieldSample extends AbstractSample implements ISample
 			textField.setEditable(((Boolean) dataRow.getValue("EDITABLE")).booleanValue());
 			textField.setHorizontalAlignment(((BigDecimal) dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
 			textField.setVerticalAlignment(((BigDecimal) dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
+			
+			coloredTextField.setBorderVisible(((Boolean) dataRow.getValue("BORDER")).booleanValue());
+			coloredTextField.setEditable(((Boolean) dataRow.getValue("EDITABLE")).booleanValue());
+			coloredTextField.setHorizontalAlignment(((BigDecimal) dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
+			coloredTextField.setVerticalAlignment(((BigDecimal) dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();
