@@ -20,9 +20,7 @@ import java.util.Date;
 
 import javax.rad.genui.celleditor.UICheckBoxCellEditor;
 import javax.rad.genui.celleditor.UIChoiceCellEditor;
-import javax.rad.genui.celleditor.UIDateCellEditor;
 import javax.rad.genui.celleditor.UILinkedCellEditor;
-import javax.rad.genui.celleditor.UINumberCellEditor;
 import javax.rad.genui.celleditor.UITextCellEditor;
 import javax.rad.genui.component.UILabel;
 import javax.rad.genui.component.UIToggleButton;
@@ -114,14 +112,18 @@ public class DataBindingSample extends AbstractSample implements ISample
 		
 		IDataBook dataBook = new MemDataBook();
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("ID", new BigDecimalDataType()));
-		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("STRING", new StringDataType(new UITextCellEditor())));
+		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("STRING", new StringDataType()));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("BOOLEAN", booleanDataType));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("CHOICE", new StringDataType(choiceCellEditor)));
-		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("DATETIME", new TimestampDataType(new UIDateCellEditor("dd.MM.yyyy"))));
-		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("NUMBER", new BigDecimalDataType(new UINumberCellEditor())));
+		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("DATETIME", new TimestampDataType()));
+		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("NUMBER", new BigDecimalDataType()));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("TYPE_ID", new BigDecimalDataType()));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("TYPE_NAME", new StringDataType(new UILinkedCellEditor(referenceDefinition))));
 		dataBook.setName("DATABINDING");
+		
+		dataBook.getRowDefinition().getColumnDefinition("ID").setNullable(false);
+		dataBook.getRowDefinition().getColumnDefinition("BOOLEAN").setNullable(false);
+		dataBook.getRowDefinition().getColumnDefinition("STRING").setNullable(false);
 		
 		dataBook.open();
 		
