@@ -113,6 +113,7 @@ public class DataBindingSample extends AbstractSample implements ISample
 		IDataBook dataBook = new MemDataBook();
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("ID", new BigDecimalDataType()));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("STRING", new StringDataType()));
+		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("PASSWORD", new StringDataType(new UITextCellEditor(UITextCellEditor.TEXT_PLAIN_PASSWORD))));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("BOOLEAN", booleanDataType));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("CHOICE", new StringDataType(choiceCellEditor)));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("DATETIME", new TimestampDataType()));
@@ -124,6 +125,7 @@ public class DataBindingSample extends AbstractSample implements ISample
 		dataBook.getRowDefinition().getColumnDefinition("ID").setNullable(false);
 		dataBook.getRowDefinition().getColumnDefinition("BOOLEAN").setNullable(false);
 		dataBook.getRowDefinition().getColumnDefinition("STRING").setNullable(false);
+		dataBook.getRowDefinition().getColumnDefinition("PASSWORD").setNullable(false);
 		
 		dataBook.open();
 		
@@ -131,6 +133,7 @@ public class DataBindingSample extends AbstractSample implements ISample
 		dataBook.setValue("ID", BigDecimal.valueOf(1));
 		dataBook.setValue("BOOLEAN", Boolean.TRUE);
 		dataBook.setValue("STRING", "This is the actual value of the column.");
+		dataBook.setValue("PASSWORD", "Some secret.");
 		dataBook.setValue("CHOICE", null);
 		dataBook.setValue("DATETIME", new Date());
 		dataBook.setValue("TYPE_ID", BigDecimal.valueOf(1));
@@ -141,6 +144,7 @@ public class DataBindingSample extends AbstractSample implements ISample
 		dataBook.setValue("ID", BigDecimal.valueOf(2));
 		dataBook.setValue("BOOLEAN", Boolean.FALSE);
 		dataBook.setValue("STRING", "This is the second row.");
+		dataBook.setValue("PASSWORD", "Some secret.");
 		dataBook.setValue("CHOICE", "important");
 		dataBook.setValue("DATETIME", null);
 		dataBook.setValue("TYPE_ID", BigDecimal.valueOf(3));
@@ -151,8 +155,6 @@ public class DataBindingSample extends AbstractSample implements ISample
 		
 		dataBook.setSelectedRow(0);
 		
-		UITable table = new UITable(dataBook);
-		
 		UIFormLayout editorsPaneLayout = new UIFormLayout();
 		editorsPaneLayout.setNewlineCount(2);
 		
@@ -162,15 +164,20 @@ public class DataBindingSample extends AbstractSample implements ISample
 		addEditor(editorsPane, dataBook, "ID");
 		addEditor(editorsPane, dataBook, "BOOLEAN");
 		addEditor(editorsPane, dataBook, "STRING");
+		addEditor(editorsPane, dataBook, "PASSWORD");
 		addEditor(editorsPane, dataBook, "CHOICE");
 		addEditor(editorsPane, dataBook, "DATETIME");
 		addEditor(editorsPane, dataBook, "NUMBER");
 		addEditor(editorsPane, dataBook, "TYPE_ID");
 		addEditor(editorsPane, dataBook, "TYPE_NAME");
 		
+		UISplitPanel tableSplitPanel = new UISplitPanel(UISplitPanel.SPLIT_TOP_BOTTOM);
+		tableSplitPanel.setFirstComponent(new UITable(dataBook));
+		tableSplitPanel.setSecondComponent(new UITable(dataBook));
+		
 		UISplitPanel splitPanel = new UISplitPanel(UISplitPanel.SPLIT_LEFT_RIGHT);
 		splitPanel.setDividerAlignment(UISplitPanel.DIVIDER_BOTTOM_RIGHT);
-		splitPanel.setFirstComponent(table);
+		splitPanel.setFirstComponent(tableSplitPanel);
 		splitPanel.setSecondComponent(editorsPane);
 		
 		UIToggleButton readOnlyToggleButton = new UIToggleButton("Read-Only");
