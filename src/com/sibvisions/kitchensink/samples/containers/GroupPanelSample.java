@@ -107,8 +107,8 @@ public class GroupPanelSample extends AbstractSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			testGroup.setHorizontalAlignment(((BigDecimal) dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
-			testGroup.setVerticalAlignment(((BigDecimal) dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
+			testGroup.setHorizontalAlignment(((BigDecimal)dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
+			testGroup.setVerticalAlignment(((BigDecimal)dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();

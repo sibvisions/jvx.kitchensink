@@ -88,18 +88,19 @@ public class TextFieldSample extends AbstractSample implements ISample
 		controlsBook.setValue("HORIZONTAL_ALIGNMENT", new BigDecimal(textField.getHorizontalAlignment()));
 		controlsBook.setValue("VERTICAL_ALIGNMENT", new BigDecimal(textField.getVerticalAlignment()));
 		
-		controlsBook.eventValuesChanged().addListener((pDataRowEvent) -> {
+		controlsBook.eventValuesChanged().addListener((pDataRowEvent) ->
+		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			textField.setBorderVisible(((Boolean) dataRow.getValue("BORDER")).booleanValue());
-			textField.setEditable(((Boolean) dataRow.getValue("EDITABLE")).booleanValue());
-			textField.setHorizontalAlignment(((BigDecimal) dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
-			textField.setVerticalAlignment(((BigDecimal) dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
+			textField.setBorderVisible(((Boolean)dataRow.getValue("BORDER")).booleanValue());
+			textField.setEditable(((Boolean)dataRow.getValue("EDITABLE")).booleanValue());
+			textField.setHorizontalAlignment(((BigDecimal)dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
+			textField.setVerticalAlignment(((BigDecimal)dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
 			
-			coloredTextField.setBorderVisible(((Boolean) dataRow.getValue("BORDER")).booleanValue());
-			coloredTextField.setEditable(((Boolean) dataRow.getValue("EDITABLE")).booleanValue());
-			coloredTextField.setHorizontalAlignment(((BigDecimal) dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
-			coloredTextField.setVerticalAlignment(((BigDecimal) dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
+			coloredTextField.setBorderVisible(((Boolean)dataRow.getValue("BORDER")).booleanValue());
+			coloredTextField.setEditable(((Boolean)dataRow.getValue("EDITABLE")).booleanValue());
+			coloredTextField.setHorizontalAlignment(((BigDecimal)dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
+			coloredTextField.setVerticalAlignment(((BigDecimal)dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();

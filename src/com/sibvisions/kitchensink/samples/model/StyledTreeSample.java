@@ -51,7 +51,7 @@ public class StyledTreeSample extends SelfJoinedSample implements ISample
 	public IPanel getContent() throws Throwable
 	{
 		IPanel content = super.getContent();
-		ITree tree = (ITree) content.getComponent(0);
+		ITree tree = (ITree)content.getComponent(0);
 		
 		tree.setCellFormatter(new CellFormatter());
 		tree.setNodeFormatter(new NodeFormatter());

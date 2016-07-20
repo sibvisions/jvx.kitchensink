@@ -96,9 +96,12 @@ public class TabsetPanelSample extends AbstractSample implements ISample
 		
 		IDataBook eventsDataBook = createEventsDataBook();
 		
-		tabset.eventTabActivated().addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Activated - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
-		tabset.eventTabClosed().addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Closed - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
-		tabset.eventTabDeactivated().addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Deactivated - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
+		tabset.eventTabActivated()
+				.addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Activated - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
+		tabset.eventTabClosed()
+				.addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Closed - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
+		tabset.eventTabDeactivated()
+				.addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Deactivated - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
 		tabset.eventTabMoved().addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Moved - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
 		
 		UITable eventsTable = new UITable(eventsDataBook);
@@ -124,9 +127,9 @@ public class TabsetPanelSample extends AbstractSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			tabset.setTabPlacement(((BigDecimal) dataRow.getValue("PLACEMENT")).intValue());
-			tabset.setNavigationKeysEnabled(((Boolean) dataRow.getValue("NAVIGATION_KEYS")).booleanValue());
-			tabset.setDragable(((Boolean) dataRow.getValue("DRAGGABLE")).booleanValue());
+			tabset.setTabPlacement(((BigDecimal)dataRow.getValue("PLACEMENT")).intValue());
+			tabset.setNavigationKeysEnabled(((Boolean)dataRow.getValue("NAVIGATION_KEYS")).booleanValue());
+			tabset.setDragable(((Boolean)dataRow.getValue("DRAGGABLE")).booleanValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();

@@ -47,8 +47,8 @@ public class SelfJoinedSample extends AbstractSample implements ISample
 	 * The counter used to keep track of how many rows we've already inserted.
 	 * <p/>
 	 * Note that this is only a quick and dirty way to keep track of the number
-	 * of inserted rows, as it simplifies the inserting code (further down)
-	 * a little.
+	 * of inserted rows, as it simplifies the inserting code (further down) a
+	 * little.
 	 */
 	private int rowCounter = 0;
 	

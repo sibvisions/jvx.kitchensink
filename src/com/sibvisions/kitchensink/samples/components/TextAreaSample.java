@@ -86,10 +86,10 @@ public class TextAreaSample extends AbstractSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			textArea.setBorderVisible(((Boolean) dataRow.getValue("BORDER")).booleanValue());
-			textArea.setEditable(((Boolean) dataRow.getValue("EDITABLE")).booleanValue());
-			textArea.setHorizontalAlignment(((BigDecimal) dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
-			textArea.setVerticalAlignment(((BigDecimal) dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
+			textArea.setBorderVisible(((Boolean)dataRow.getValue("BORDER")).booleanValue());
+			textArea.setEditable(((Boolean)dataRow.getValue("EDITABLE")).booleanValue());
+			textArea.setHorizontalAlignment(((BigDecimal)dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
+			textArea.setVerticalAlignment(((BigDecimal)dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();

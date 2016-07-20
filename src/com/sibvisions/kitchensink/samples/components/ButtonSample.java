@@ -112,32 +112,32 @@ public class ButtonSample extends AbstractSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			button.setBorderPainted(((Boolean) dataRow.getValue("BORDER")).booleanValue());
-			button.setBorderOnMouseEntered(((Boolean) dataRow.getValue("BORDER_MOUSE_ENTERED")).booleanValue());
-			button.setDefaultButton(((Boolean) dataRow.getValue("DEFAULT")).booleanValue());
-			button.setHorizontalTextPosition(((BigDecimal) dataRow.getValue("HORIZONTAL_TEXT_ALIGNMENT")).intValue());
-			button.setImageTextGap(((BigDecimal) dataRow.getValue("IMAGE_TEXT_GAP")).intValue());
-			button.setVerticalTextPosition(((BigDecimal) dataRow.getValue("VERTICAL_TEXT_ALIGNMENT")).intValue());
+			button.setBorderPainted(((Boolean)dataRow.getValue("BORDER")).booleanValue());
+			button.setBorderOnMouseEntered(((Boolean)dataRow.getValue("BORDER_MOUSE_ENTERED")).booleanValue());
+			button.setDefaultButton(((Boolean)dataRow.getValue("DEFAULT")).booleanValue());
+			button.setHorizontalTextPosition(((BigDecimal)dataRow.getValue("HORIZONTAL_TEXT_ALIGNMENT")).intValue());
+			button.setImageTextGap(((BigDecimal)dataRow.getValue("IMAGE_TEXT_GAP")).intValue());
+			button.setVerticalTextPosition(((BigDecimal)dataRow.getValue("VERTICAL_TEXT_ALIGNMENT")).intValue());
 			
-			if (((Boolean) dataRow.getValue("IMAGES")).booleanValue())
+			if (((Boolean)dataRow.getValue("IMAGES")).booleanValue())
 			{
 				button.setImage(UIImage.getImage("/com/sibvisions/kitchensink/images/weather-clear.png"));
 				button.setMouseOverImage(UIImage.getImage("/com/sibvisions/kitchensink/images/weather-few-clouds.png"));
 				button.setPressedImage(UIImage.getImage("/com/sibvisions/kitchensink/images/weather-overcast.png"));
 			}
-				else
-				{
-					button.setImage(null);
-					button.setMouseOverImage(null);
-					button.setPressedImage(null);
-				}
-				
-				button.setMargins(new UIInsets(
-						((BigDecimal) dataRow.getValue("MARGIN_TOP")).intValue(),
-						((BigDecimal) dataRow.getValue("MARGIN_LEFT")).intValue(),
-						((BigDecimal) dataRow.getValue("MARGIN_BOTTOM")).intValue(),
-						((BigDecimal) dataRow.getValue("MARGIN_RIGHT")).intValue()));
-			});
+			else
+			{
+				button.setImage(null);
+				button.setMouseOverImage(null);
+				button.setPressedImage(null);
+			}
+			
+			button.setMargins(new UIInsets(
+					((BigDecimal)dataRow.getValue("MARGIN_TOP")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_LEFT")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_BOTTOM")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_RIGHT")).intValue()));
+		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();
 		controlsLayout.setNewlineCount(4);

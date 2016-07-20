@@ -83,9 +83,9 @@ public class IconSample extends AbstractSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			icon.setHorizontalAlignment(((BigDecimal) dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
-			icon.setVerticalAlignment(((BigDecimal) dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
-			icon.setPreserveAspectRatio(((Boolean) dataRow.getValue("ASPECT_RATIO")).booleanValue());
+			icon.setHorizontalAlignment(((BigDecimal)dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
+			icon.setVerticalAlignment(((BigDecimal)dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
+			icon.setPreserveAspectRatio(((Boolean)dataRow.getValue("ASPECT_RATIO")).booleanValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();
@@ -98,8 +98,8 @@ public class IconSample extends AbstractSample implements ISample
 		controls.add(new UILabel("Vertical Alignment"), controlsLayout.getConstraints(2, 0));
 		controls.add(new UIEditor(controlsBook, "VERTICAL_ALIGNMENT"), controlsLayout.getConstraints(3, 0));
 		
-		controls.add(new UILabel("Keep Aspect Ratio"), controlsLayout.getConstraints(4,0));
-		controls.add(new UIEditor(controlsBook, "ASPECT_RATIO"), controlsLayout.getConstraints(5,0));
+		controls.add(new UILabel("Keep Aspect Ratio"), controlsLayout.getConstraints(4, 0));
+		controls.add(new UIEditor(controlsBook, "ASPECT_RATIO"), controlsLayout.getConstraints(5, 0));
 		
 		controls.add(new UILabel("The above image is CIExy1931_sRGB, CC-BY-SA 3.0"), controlsLayout.getConstraints(0, -2, -1, -2));
 		controls.add(new UILabel("http://commons.wikimedia.org/wiki/Colors#mediaviewer/File:CIExy1931_sRGB.png"), controlsLayout.getConstraints(0, -1, -1, -1));

@@ -151,21 +151,21 @@ public class FormLayoutSample extends AbstractSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			constraintBasedLayout.setHorizontalGap(((BigDecimal) dataRow.getValue("HORIZONTAL_GAP")).intValue());
-			constraintBasedLayout.setVerticalGap(((BigDecimal) dataRow.getValue("VERTICAL_GAP")).intValue());
+			constraintBasedLayout.setHorizontalGap(((BigDecimal)dataRow.getValue("HORIZONTAL_GAP")).intValue());
+			constraintBasedLayout.setVerticalGap(((BigDecimal)dataRow.getValue("VERTICAL_GAP")).intValue());
 			constraintBasedLayout.setMargins(new UIInsets(
-					((BigDecimal) dataRow.getValue("MARGIN_TOP")).intValue(),
-					((BigDecimal) dataRow.getValue("MARGIN_LEFT")).intValue(),
-					((BigDecimal) dataRow.getValue("MARGIN_BOTTOM")).intValue(),
-					((BigDecimal) dataRow.getValue("MARGIN_RIGHT")).intValue()));
+					((BigDecimal)dataRow.getValue("MARGIN_TOP")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_LEFT")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_BOTTOM")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_RIGHT")).intValue()));
 			
-			lineBasedLayout.setHorizontalGap(((BigDecimal) dataRow.getValue("HORIZONTAL_GAP")).intValue());
-			lineBasedLayout.setVerticalGap(((BigDecimal) dataRow.getValue("VERTICAL_GAP")).intValue());
+			lineBasedLayout.setHorizontalGap(((BigDecimal)dataRow.getValue("HORIZONTAL_GAP")).intValue());
+			lineBasedLayout.setVerticalGap(((BigDecimal)dataRow.getValue("VERTICAL_GAP")).intValue());
 			lineBasedLayout.setMargins(new UIInsets(
-					((BigDecimal) dataRow.getValue("MARGIN_TOP")).intValue(),
-					((BigDecimal) dataRow.getValue("MARGIN_LEFT")).intValue(),
-					((BigDecimal) dataRow.getValue("MARGIN_BOTTOM")).intValue(),
-					((BigDecimal) dataRow.getValue("MARGIN_RIGHT")).intValue()));
+					((BigDecimal)dataRow.getValue("MARGIN_TOP")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_LEFT")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_BOTTOM")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_RIGHT")).intValue()));
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();

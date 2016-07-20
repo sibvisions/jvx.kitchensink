@@ -100,8 +100,8 @@ public class MdiSample extends AbstractSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			desktop.setTabMode(((Boolean) dataRow.getValue("TAB_MODE")).booleanValue());
-			desktop.setNavigationKeysEnabled(((Boolean) dataRow.getValue("NAVIGATION_KEYS")).booleanValue());
+			desktop.setTabMode(((Boolean)dataRow.getValue("TAB_MODE")).booleanValue());
+			desktop.setNavigationKeysEnabled(((Boolean)dataRow.getValue("NAVIGATION_KEYS")).booleanValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();

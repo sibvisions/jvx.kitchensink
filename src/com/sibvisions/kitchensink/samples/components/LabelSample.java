@@ -34,14 +34,14 @@ import com.sibvisions.kitchensink.samples.AbstractSample;
  */
 public class LabelSample extends AbstractSample implements ISample
 {
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Interface implementation
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Interface implementation
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	/**
- * {@inheritDoc}
- */
-@Override
+	 * {@inheritDoc}
+	 */
+	@Override
 	public String getCategory()
 	{
 		return "Components";

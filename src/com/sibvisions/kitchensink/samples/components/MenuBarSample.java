@@ -78,7 +78,7 @@ public class MenuBarSample extends AbstractSample implements ISample
 		UIMenu checkBoxMenu = new UIMenu("CheckBox");
 		checkBoxMenu.add(new UICheckBoxMenuItem("Check it!"));
 		checkBoxMenu.add(new UICheckBoxMenuItem("With image!"));
-		((UICheckBoxMenuItem) checkBoxMenu.getComponent(1)).setPressedImage(getImage("emblem-favorite.png"));
+		((UICheckBoxMenuItem)checkBoxMenu.getComponent(1)).setPressedImage(getImage("emblem-favorite.png"));
 		
 		UIMenu southDakotaMenu = new UIMenu("South Dakota (empty)");
 		

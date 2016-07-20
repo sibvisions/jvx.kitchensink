@@ -82,7 +82,7 @@ public class MasterDetail2Sample extends AbstractSample implements ISample
 		insert(masterDataBook, BigDecimal.valueOf(1), null, "Hardware");
 		insert(masterDataBook, BigDecimal.valueOf(2), BigDecimal.valueOf(1), "CPU");
 		insert(masterDataBook, BigDecimal.valueOf(3), BigDecimal.valueOf(1), "RAM");
-		insert(masterDataBook, BigDecimal.valueOf(4), BigDecimal.valueOf(1), "Storage");		
+		insert(masterDataBook, BigDecimal.valueOf(4), BigDecimal.valueOf(1), "Storage");
 		insert(masterDataBook, BigDecimal.valueOf(5), null, "Software");
 		insert(masterDataBook, BigDecimal.valueOf(6), BigDecimal.valueOf(5), "Useful");
 		insert(masterDataBook, BigDecimal.valueOf(7), BigDecimal.valueOf(5), "Not useful");

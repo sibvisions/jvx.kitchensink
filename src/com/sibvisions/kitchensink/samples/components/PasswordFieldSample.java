@@ -76,7 +76,7 @@ public class PasswordFieldSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			if (!StringUtil.isEmpty((String) dataRow.getValue("MASK")))
+			if (!StringUtil.isEmpty((String)dataRow.getValue("MASK")))
 			{
 				passwordField.setEchoChar(dataRow.getValue("MASK").toString().charAt(0));
 			}

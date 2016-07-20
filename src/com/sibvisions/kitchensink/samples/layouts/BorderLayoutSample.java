@@ -94,13 +94,13 @@ public class BorderLayoutSample extends AbstractSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			mainLayout.setHorizontalGap(((BigDecimal) dataRow.getValue("HORIZONTAL_GAP")).intValue());
-			mainLayout.setVerticalGap(((BigDecimal) dataRow.getValue("VERTICAL_GAP")).intValue());
+			mainLayout.setHorizontalGap(((BigDecimal)dataRow.getValue("HORIZONTAL_GAP")).intValue());
+			mainLayout.setVerticalGap(((BigDecimal)dataRow.getValue("VERTICAL_GAP")).intValue());
 			mainLayout.setMargins(new UIInsets(
-					((BigDecimal) dataRow.getValue("MARGIN_TOP")).intValue(),
-					((BigDecimal) dataRow.getValue("MARGIN_LEFT")).intValue(),
-					((BigDecimal) dataRow.getValue("MARGIN_BOTTOM")).intValue(),
-					((BigDecimal) dataRow.getValue("MARGIN_RIGHT")).intValue()));
+					((BigDecimal)dataRow.getValue("MARGIN_TOP")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_LEFT")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_BOTTOM")).intValue(),
+					((BigDecimal)dataRow.getValue("MARGIN_RIGHT")).intValue()));
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();
