@@ -9,6 +9,9 @@ available in the [JVx Enterprise Application Framework][JVx].
 Simply run it with the provided launcher (JVx KitchenSink*.launch) or build 
 the jar and start that.
 
+Please note that Java version 1.8 is required for this sample application to
+build and run, however, JVx itself only requires 1.6 to work. 
+
 By default the Swing factory (com.sibvisions.rad.ui.swing.impl.SwingFactory) 
 is created and used, to use another factory simply pass the fully qualified 
 name of the factory to the main method as argument, e.g.
