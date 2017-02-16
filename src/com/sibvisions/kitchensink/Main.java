@@ -25,6 +25,10 @@ import javax.rad.genui.celleditor.UINumberCellEditor;
 import javax.rad.ui.IFactory;
 import javax.swing.UIManager;
 
+import com.sibvisions.rad.ui.swing.impl.SwingFactory;
+import com.sibvisions.util.log.ILogger.LogLevel;
+import com.sibvisions.util.log.LoggerFactory;
+
 /**
  * The main class.
  */
@@ -47,9 +51,13 @@ public final class Main
 		// up everything necessary.
 		// But this way is fine for quick tests or very simple applications.
 		
+		// Configure the logger so that we see all log messages of
+		// the Kitchensink.
+		LoggerFactory.setLevel("com.sibvisions.kitchensink", LogLevel.ALL);
+		
 		try
 		{
-			Class<?> factoryClass;
+			Class<?> factoryClass = null;
 			
 			try
 			{
@@ -58,8 +66,13 @@ public final class Main
 			}
 			catch (Exception e)
 			{
-				factoryClass = Main.class.getClassLoader().loadClass("com.sibvisions.rad.ui.swing.impl.SwingFactory");
+				LoggerFactory.getInstance(Main.class).info("Defaulting to SwingFactory.", e);
 				
+				factoryClass = Main.class.getClassLoader().loadClass("com.sibvisions.rad.ui.swing.impl.SwingFactory");
+			}
+			
+			if (SwingFactory.class.isAssignableFrom(factoryClass))
+			{
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			}
 			
@@ -89,7 +102,7 @@ public final class Main
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			LoggerFactory.getInstance(Main.class).error(e);
 			
 			System.exit(1);
 		}
