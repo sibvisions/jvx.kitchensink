@@ -7,6 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.sibvisions.kitchensink.Main"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="com.sibvisions.rad.ui.javafx.impl.FXFactory"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="com.sibvisions.rad.ui.javafx.impl.JavaFXFactory"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="jvx.kitchensink"/>
 </launchConfiguration>
