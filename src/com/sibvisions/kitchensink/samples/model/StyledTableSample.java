@@ -15,8 +15,8 @@
  */
 package com.sibvisions.kitchensink.samples.model;
 
-import javax.rad.genui.UIColor;
 import javax.rad.genui.UIFont;
+import javax.rad.genui.UIImage;
 import javax.rad.genui.container.UIPanel;
 import javax.rad.genui.control.UICellFormat;
 import javax.rad.genui.control.UITable;
@@ -25,7 +25,6 @@ import javax.rad.model.ColumnDefinition;
 import javax.rad.model.IDataBook;
 import javax.rad.model.IDataPage;
 import javax.rad.model.IDataRow;
-import javax.rad.ui.IColor;
 import javax.rad.ui.IFont;
 import javax.rad.ui.container.IPanel;
 import javax.rad.ui.control.ICellFormat;
@@ -42,6 +41,34 @@ import com.sibvisions.rad.model.mem.MemDataBook;
  */
 public class StyledTableSample implements ISample
 {
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Constants
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	/** A {@link UICellFormat} with a black background. */
+	private static final UICellFormat BLACK_FORMAT = new UICellFormat(
+			Tango.ALUMINIUM_6,
+			Tango.ALUMINIUM_1,
+			new UIFont("Courier New", IFont.PLAIN, 10),
+			UIImage.getImage(UIImage.SAVE_ALL_LARGE),
+			6);
+	
+	/** A {@link UICellFormat} with a white background and white foreground. */
+	private static final UICellFormat BLUE_FORMAT = new UICellFormat(
+			Tango.ALUMINIUM_1,
+			Tango.SKY_BLUE_3,
+			new UIFont("Verdana", IFont.ITALIC, 8),
+			UIImage.getImage(UIImage.OK_LARGE),
+			6);
+	
+	/** A {@link UICellFormat} with a white background. */
+	private static final UICellFormat WHITE_FORMAT = new UICellFormat(
+			Tango.ALUMINIUM_1,
+			Tango.ALUMINIUM_6,
+			new UIFont("Courier New", IFont.BOLD, 12),
+			UIImage.getImage(UIImage.EDIT_LARGE),
+			12);
+	
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Interface implementation
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,7 +98,7 @@ public class StyledTableSample implements ISample
 		for (int counter = 0; counter < 17; counter++)
 		{
 			dataBook.insert(false);
-			dataBook.setValues(null, new Object[] { "Something", "Something", "Something" });
+			dataBook.setValues(null, new Object[] { "Something", "Another column", "More values" });
 		}
 		
 		dataBook.saveAllRows();
@@ -117,21 +144,20 @@ public class StyledTableSample implements ISample
 		@Override
 		public ICellFormat getCellFormat(IDataBook pDataBook, IDataPage pDataPage, IDataRow pDataRow, String pColumnName, int pRow, int pColumn)
 		{
-			IColor backgroundColor = UIColor.white;
-			IColor foregroundColor = UIColor.black;
-			
-			if (pRow % 2 == 0)
+			switch (pRow % 3)
 			{
-				backgroundColor = Tango.ALUMINIUM_6;
-				foregroundColor = Tango.ALUMINIUM_1;
-			}
-			else
-			{
-				backgroundColor = Tango.ALUMINIUM_1;
-				foregroundColor = Tango.ALUMINIUM_6;
+				case 0:
+					return WHITE_FORMAT;
+				
+				case 1:
+					return BLACK_FORMAT;
+				
+				case 2:
+					return BLUE_FORMAT;
+				
 			}
 			
-			return new UICellFormat(backgroundColor, foregroundColor, new UIFont("Courier New", IFont.BOLD, 12), null, 10);
+			return null;
 		}
 		
 	}	// CellFormatter
