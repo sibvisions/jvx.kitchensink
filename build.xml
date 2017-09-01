@@ -48,7 +48,7 @@
 	<target name="compile">
 		<mkdir dir="${build}" />
 		<mkdir dir="${classes}" />
-		<javac srcdir="${src}" destdir="${classes}" classpath="lib/jvx.jar" includeantruntime="false" source="1.8" encoding="UTF-8" />
+		<javac srcdir="${src}" destdir="${classes}" classpath="lib/jvx.jar" includeantruntime="false" debug="on" debuglevel="lines,source" source="1.8" encoding="UTF-8" />
 
 		<copy todir="${classes}">
 			<fileset dir="${src}">
@@ -63,12 +63,22 @@
 
 	<target name="jar" depends="compile">
 		<mkdir dir="${release}" />
-		<jar jarfile="${release}/${jar.name}" basedir="${classes}">
+		<jar jarfile="${release}/${jar.name}">
 			<manifest>
 				<attribute name="Implementation-Title" value="JVx Kitchensink" />
 				<attribute name="Implementation-Vendor" value="SIB Visions GmbH" />
 				<attribute name="Main-Class" value="com.sibvisions.kitchensink.Main" />
 			</manifest>
+
+			<zipfileset dir="${classes}">
+				<include name="**/*" />
+			</zipfileset>
+
+			<zipfileset dir="${src}">
+				<include name="**/*.java" />
+				<include name="**/*.jpg" />
+				<include name="**/*.png" />
+			</zipfileset>
 		</jar>
 		<copy file="lib/jvx.jar" todir="${release}" />
 	</target>
