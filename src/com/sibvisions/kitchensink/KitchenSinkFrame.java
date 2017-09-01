@@ -15,6 +15,8 @@
  */
 package com.sibvisions.kitchensink;
 
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,16 +24,26 @@ import javax.rad.genui.IFontAwesome;
 import javax.rad.genui.UIColor;
 import javax.rad.genui.UIImage;
 import javax.rad.genui.component.UIButton;
+import javax.rad.genui.component.UICustomComponent;
 import javax.rad.genui.component.UIIcon;
+import javax.rad.genui.component.UITextArea;
 import javax.rad.genui.container.UIFrame;
 import javax.rad.genui.container.UIGroupPanel;
 import javax.rad.genui.container.UIPanel;
 import javax.rad.genui.container.UIScrollPanel;
+import javax.rad.genui.container.UITabsetPanel;
 import javax.rad.genui.layout.UIBorderLayout;
 import javax.rad.genui.layout.UIFormLayout;
 import javax.rad.ui.IAlignmentConstants;
+import javax.rad.ui.IComponent;
 import javax.rad.ui.IContainer;
+import javax.rad.ui.component.ITextArea;
 import javax.rad.ui.layout.IFormLayout.IConstraints;
+
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rtextarea.RTextArea;
+import org.fife.ui.rtextarea.RTextScrollPane;
 
 import com.sibvisions.kitchensink.components.AboutJVxComponent;
 import com.sibvisions.kitchensink.components.AboutSIBVisionsComponent;
@@ -73,6 +85,9 @@ import com.sibvisions.kitchensink.samples.other.TabIndexSample;
 import com.sibvisions.kitchensink.samples.other.TooltipSample;
 import com.sibvisions.kitchensink.samples.other.TranslationSample;
 import com.sibvisions.kitchensink.samples.tests.ZOrderFormTestSample;
+import com.sibvisions.rad.ui.swing.impl.SwingFactory;
+import com.sibvisions.util.type.FileUtil;
+import com.sibvisions.util.type.ResourceUtil;
 
 /**
  * The {@link KitchenSinkFrame} is our main {@link UIFrame} which will be used
@@ -119,6 +134,39 @@ public class KitchenSinkFrame extends UIFrame
 		border.setVerticalAlignment(pVerticalAlignment);
 		
 		pContainer.add(border, constraints);
+	}
+	
+	/**
+	 * Creates a new source viewer component and returns it.
+	 * 
+	 * @param pSource the source to display.
+	 * @return the new source viewer component.
+	 */
+	protected IComponent createSourceViewer()
+	{
+		if (getFactory() instanceof SwingFactory)
+		{
+			RSyntaxTextArea textArea = new RSyntaxTextArea();
+			textArea.setAutoIndentEnabled(true);
+			textArea.setBracketMatchingEnabled(true);
+			textArea.setCaretPosition(0);
+			textArea.setClearWhitespaceLinesEnabled(false);
+			textArea.setCloseCurlyBraces(true);
+			textArea.setLineWrap(false);
+			textArea.setEditable(false);
+			textArea.setMarkOccurrences(true);
+			textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+			textArea.setTabSize(4);
+			textArea.setWhitespaceVisible(false);
+			
+			return new UICustomComponent(new RTextScrollPane(textArea, true));
+		}
+		else
+		{
+			UITextArea textArea = new UITextArea();
+			
+			return textArea;
+		}
 	}
 	
 	/**
@@ -181,6 +229,33 @@ public class KitchenSinkFrame extends UIFrame
 	}
 	
 	/**
+	 * Gets the source code for the given class.
+	 * 
+	 * @param pClass the {@link Class} for which to get the source code.
+	 * @return the source code for the given {@link Class}.
+	 * @throws UnsupportedEncodingException if UTF-8 could not be used.
+	 */
+	private String getSourceCode(Class<?> pClass) throws UnsupportedEncodingException
+	{
+		String className = pClass.getName();
+		String resourcePath = "/" + className.replace(".", "/") + ".java";
+		
+		InputStream stream = ResourceUtil.getResourceAsStream(resourcePath);
+		
+		if (stream == null)
+		{
+			stream = ResourceUtil.getResourceAsStream("./src/" + resourcePath);
+		}
+		
+		if (stream == null)
+		{
+			return "// Source code could not be found.";
+		}
+		
+		return new String(FileUtil.getContent(stream), "UTF-8");
+	}
+	
+	/**
 	 * Initializes the UI.
 	 */
 	private void initializeUI()
@@ -196,11 +271,29 @@ public class KitchenSinkFrame extends UIFrame
 		// The panel that is used to display the content of the sample.
 		UIPanel contentPanel = new UIPanel();
 		contentPanel.setLayout(new UIBorderLayout());
-		contentPanel.add(new AboutJVxComponent(), UIBorderLayout.CENTER);
+		
+		IComponent sourceTextArea = createSourceViewer();
+		
+		// The panel that is used to display the source code of the sample.
+		UIPanel sourcePanel = new UIPanel();
+		sourcePanel.setLayout(new UIBorderLayout());
+		sourcePanel.add(sourceTextArea, UIBorderLayout.CENTER);
+		
+		// The tabset used to display the content.
+		UITabsetPanel contentTabsetPanel = new UITabsetPanel();
+		contentTabsetPanel.setBackground(contentPanel.getBackground());
+		contentTabsetPanel.add(contentPanel, "Sample");
+		contentTabsetPanel.add(sourcePanel, "Source");
 		
 		// Now we're setting up the list of buttons that you see on the left.
 		UIFormLayout categoryPanelLayout = null;
 		UIGroupPanel categoryPanel = null;
+		
+		// The "About JVx" component.
+		AboutJVxComponent aboutJVxComponent = new AboutJVxComponent();
+		
+		// The "About SIB Visions" component.
+		AboutSIBVisionsComponent aboutSIBVisionsComponent = new AboutSIBVisionsComponent();
 		
 		// Assuming that the buttons are in the correct order and are grouped
 		// by their group.
@@ -222,11 +315,30 @@ public class KitchenSinkFrame extends UIFrame
 			UIButton button = new UIButton(sample.getName());
 			button.eventAction().addListener(pActionEvent ->
 			{
+				remove(aboutJVxComponent);
+				remove(aboutSIBVisionsComponent);
+				
+				add(contentTabsetPanel, UIBorderLayout.CENTER);
+				
 				contentPanel.removeAll();
 				
 				try
 				{
 					contentPanel.add(sample.getContent(), UIBorderLayout.CENTER);
+					
+					String source = getSourceCode(sample.getClass());
+					
+					if (sourceTextArea instanceof UICustomComponent
+							&& sourceTextArea.getResource() instanceof RTextScrollPane)
+					{
+						RTextArea syntaxTextArea = ((RTextScrollPane)sourceTextArea.getResource()).getTextArea();
+						syntaxTextArea.setText(source);
+						syntaxTextArea.setCaretPosition(0);
+					}
+					else if (sourceTextArea instanceof ITextArea)
+					{
+						((ITextArea)sourceTextArea).setText(source);
+					}
 				}
 				catch (Throwable th)
 				{
@@ -249,8 +361,10 @@ public class KitchenSinkFrame extends UIFrame
 		aboutJvxButton.setVerticalTextPosition(UIButton.ALIGN_BOTTOM);
 		aboutJvxButton.eventAction().addListener(pActionEvent ->
 		{
-			contentPanel.removeAll();
-			contentPanel.add(new AboutJVxComponent(), UIBorderLayout.CENTER);
+			remove(contentTabsetPanel);
+			remove(aboutSIBVisionsComponent);
+			
+			add(aboutJVxComponent, UIBorderLayout.CENTER);
 		});
 		
 		// The "About SIB Visions" button in the top bar.
@@ -263,8 +377,10 @@ public class KitchenSinkFrame extends UIFrame
 		aboutSibVisionsButton.setVerticalTextPosition(UIButton.ALIGN_BOTTOM);
 		aboutSibVisionsButton.eventAction().addListener(pActionEvent ->
 		{
-			contentPanel.removeAll();
-			contentPanel.add(new AboutSIBVisionsComponent(), UIBorderLayout.CENTER);
+			remove(contentTabsetPanel);
+			remove(aboutJVxComponent);
+			
+			add(aboutSIBVisionsComponent, UIBorderLayout.CENTER);
 		});
 		
 		// The layout for the header panel.
@@ -286,7 +402,7 @@ public class KitchenSinkFrame extends UIFrame
 		
 		// Add the panels to the frame.
 		add(headerPanel, UIBorderLayout.NORTH);
-		add(contentPanel, UIBorderLayout.CENTER);
+		add(aboutJVxComponent, UIBorderLayout.CENTER);
 		add(samplePanel, UIBorderLayout.WEST);
 	}
 	

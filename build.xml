@@ -28,6 +28,7 @@
 	<property name="temp" location="${build}/temp" />
 	<property name="release" location="${build}/release" />
 	<property name="src" value="${basedir}/src" />
+	<property name="lib" value="${basedir}/lib" />
 	<property name="classes" value="${temp}/classes" />
 
 	<!--
@@ -48,7 +49,13 @@
 	<target name="compile">
 		<mkdir dir="${build}" />
 		<mkdir dir="${classes}" />
-		<javac srcdir="${src}" destdir="${classes}" classpath="lib/jvx.jar" includeantruntime="false" debug="on" debuglevel="lines,source" source="1.8" encoding="UTF-8" />
+		<javac srcdir="${src}" destdir="${classes}" includeantruntime="false" debug="on" debuglevel="lines,source" source="1.8" encoding="UTF-8">
+			<classpath>
+				<fileset dir="${lib}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
 
 		<copy todir="${classes}">
 			<fileset dir="${src}">
@@ -80,7 +87,7 @@
 				<include name="**/*.png" />
 			</zipfileset>
 		</jar>
-		<copy file="lib/jvx.jar" todir="${release}" />
+		<copy file="lib/jvx-2.7-nightly.jar" todir="${release}" />
 	</target>
 
 	<!--

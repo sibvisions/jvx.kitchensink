@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/jvx-2.6.jar"/>
+	<classpathentry kind="lib" path="lib/jvx-2.7-nightly.jar"/>
 	<classpathentry kind="lib" path="lib/jvxfx-1.2-20170210.032543-33.jar"/>
+	<classpathentry kind="lib" path="lib/rsyntaxtextarea-2.5.8.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-1.0.13.jar"/>
 	<classpathentry kind="lib" path="lib/jcommon-1.0.16.jar"/>
 	<classpathentry kind="lib" path="lib/dndtabpane.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
