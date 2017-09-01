@@ -81,6 +81,7 @@ import com.sibvisions.kitchensink.samples.other.CursorSample;
 import com.sibvisions.kitchensink.samples.other.EventsSample;
 import com.sibvisions.kitchensink.samples.other.FontAwesomeSample;
 import com.sibvisions.kitchensink.samples.other.FontSample;
+import com.sibvisions.kitchensink.samples.other.PopupMenuSample;
 import com.sibvisions.kitchensink.samples.other.TabIndexSample;
 import com.sibvisions.kitchensink.samples.other.TooltipSample;
 import com.sibvisions.kitchensink.samples.other.TranslationSample;
@@ -220,6 +221,7 @@ public class KitchenSinkFrame extends UIFrame
 		samples.add(new EventsSample());
 		samples.add(new FontSample());
 		samples.add(new FontAwesomeSample());
+		samples.add(new PopupMenuSample());
 		samples.add(new TabIndexSample());
 		samples.add(new TooltipSample());
 		samples.add(new TranslationSample());
