@@ -18,15 +18,24 @@ package com.sibvisions.kitchensink;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.rad.genui.IFontAwesome;
+import javax.rad.genui.UIColor;
 import javax.rad.genui.UICursor;
+import javax.rad.genui.UIImage;
 import javax.rad.genui.component.UIButton;
+import javax.rad.genui.component.UIIcon;
 import javax.rad.genui.container.UIFrame;
 import javax.rad.genui.container.UIGroupPanel;
 import javax.rad.genui.container.UIPanel;
 import javax.rad.genui.container.UIScrollPanel;
 import javax.rad.genui.layout.UIBorderLayout;
 import javax.rad.genui.layout.UIFormLayout;
+import javax.rad.ui.IAlignmentConstants;
+import javax.rad.ui.IContainer;
+import javax.rad.ui.layout.IFormLayout.IConstraints;
 
+import com.sibvisions.kitchensink.components.AboutJVxComponent;
+import com.sibvisions.kitchensink.components.AboutSIBVisionsComponent;
 import com.sibvisions.kitchensink.samples.components.ButtonSample;
 import com.sibvisions.kitchensink.samples.components.CheckBoxSample;
 import com.sibvisions.kitchensink.samples.components.IconSample;
@@ -101,6 +110,18 @@ public class KitchenSinkFrame extends UIFrame
 	// User-defined methods
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
+	private static void addBorder(IContainer pContainer, int pHorizontalAlignment, int pVerticalAlignment)
+	{
+		UIFormLayout layout = (UIFormLayout)pContainer.getLayout();
+		IConstraints constraints = layout.getConstraints(layout.getTopAnchor(), layout.getLeftAnchor(), layout.getBottomAnchor(), layout.getRightAnchor());
+		
+		UIIcon border = new UIIcon(UIImage.getImage("/com/sibvisions/kitchensink/images/border-pixel.png"));
+		border.setHorizontalAlignment(pHorizontalAlignment);
+		border.setVerticalAlignment(pVerticalAlignment);
+		
+		pContainer.add(border, constraints);
+	}
+	
 	/**
 	 * Collects and adds all {@link ISample}s to the {@link #samples list of
 	 * samples}.
@@ -165,21 +186,18 @@ public class KitchenSinkFrame extends UIFrame
 	 */
 	private void initializeUI()
 	{
-		// Setting up the Frame.
-		setLayout(new UIBorderLayout());
-		setPreferredSize(800, 600);
-		setTitle("JVx KitchenSink");
-		
 		// The layout for the panel of buttons of the samples.
 		UIFormLayout samplePanelLayout = new UIFormLayout();
 		
 		// The panel of buttons of the samples.
 		UIScrollPanel samplePanel = new UIScrollPanel();
 		samplePanel.setLayout(samplePanelLayout);
+		samplePanel.setBackground(new UIColor(0xf4f8fa));
 		
 		// The panel that is used to display the content of the sample.
 		UIPanel contentPanel = new UIPanel();
 		contentPanel.setLayout(new UIBorderLayout());
+		contentPanel.add(new AboutJVxComponent(), UIBorderLayout.CENTER);
 		
 		// Now we're setting up the list of buttons that you see on the left.
 		UIFormLayout categoryPanelLayout = null;
@@ -193,8 +211,10 @@ public class KitchenSinkFrame extends UIFrame
 			if (categoryPanel == null || !categoryPanel.getText().equals(sample.getCategory()))
 			{
 				categoryPanelLayout = new UIFormLayout();
+				
 				categoryPanel = new UIGroupPanel(sample.getCategory());
 				categoryPanel.setLayout(categoryPanelLayout);
+				categoryPanel.setBackground(new UIColor(0xf4f8fa));
 				
 				samplePanel.add(categoryPanel, samplePanelLayout.getConstraints(0, samplePanel.getComponentCount(), -1, samplePanel.getComponentCount()));
 			}
@@ -224,7 +244,53 @@ public class KitchenSinkFrame extends UIFrame
 			categoryPanel.add(button, categoryPanelLayout.getConstraints(0, count, -1, count));
 		}
 		
-		// Add the two panels to the frame.
+		// The "About JVx" button in the top bar.
+		UIButton aboutJvxButton = new UIButton();
+		aboutJvxButton.setBorderOnMouseEntered(true);
+		aboutJvxButton.setFocusable(false);
+		aboutJvxButton.setHorizontalTextPosition(UIButton.ALIGN_CENTER);
+		aboutJvxButton.setImage(UIImage.getImage(IFontAwesome.INFO_CIRCLE_LARGE));
+		aboutJvxButton.setText("About JVx");
+		aboutJvxButton.setVerticalTextPosition(UIButton.ALIGN_BOTTOM);
+		aboutJvxButton.eventAction().addListener(pActionEvent ->
+		{
+			contentPanel.removeAll();
+			contentPanel.add(new AboutJVxComponent(), UIBorderLayout.CENTER);
+		});
+		
+		// The "About SIB Visions" button in the top bar.
+		UIButton aboutSibVisionsButton = new UIButton();
+		aboutSibVisionsButton.setBorderOnMouseEntered(true);
+		aboutSibVisionsButton.setFocusable(false);
+		aboutSibVisionsButton.setHorizontalTextPosition(UIButton.ALIGN_CENTER);
+		aboutSibVisionsButton.setImage(UIImage.getImage(IFontAwesome.INFO_CIRCLE_LARGE));
+		aboutSibVisionsButton.setText("About SIB Visions");
+		aboutSibVisionsButton.setVerticalTextPosition(UIButton.ALIGN_BOTTOM);
+		aboutSibVisionsButton.eventAction().addListener(pActionEvent ->
+		{
+			contentPanel.removeAll();
+			contentPanel.add(new AboutSIBVisionsComponent(), UIBorderLayout.CENTER);
+		});
+		
+		// The layout for the header panel.
+		UIFormLayout headerPanelLayout = new UIFormLayout();
+		
+		// The panel used for the top bar.
+		UIPanel headerPanel = new UIPanel();
+		headerPanel.setLayout(headerPanelLayout);
+		headerPanel.setBackground(UIColor.white);
+		headerPanel.add(new UIIcon(new UIImage("/com/sibvisions/kitchensink/images/jvx.png")), headerPanelLayout.getConstraints(0, 0));
+		headerPanel.add(aboutJvxButton, headerPanelLayout.getConstraints(-2, 0));
+		headerPanel.add(aboutSibVisionsButton, headerPanelLayout.getConstraints(-1, 0));
+		addBorder(headerPanel, IAlignmentConstants.ALIGN_STRETCH, IAlignmentConstants.ALIGN_BOTTOM);
+		
+		// Setting up the Frame.
+		setLayout(new UIBorderLayout());
+		setPreferredSize(800, 600);
+		setTitle("JVx KitchenSink");
+		
+		// Add the panels to the frame.
+		add(headerPanel, UIBorderLayout.NORTH);
 		add(contentPanel, UIBorderLayout.CENTER);
 		add(samplePanel, UIBorderLayout.WEST);
 	}
