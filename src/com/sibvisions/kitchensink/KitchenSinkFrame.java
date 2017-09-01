@@ -20,7 +20,6 @@ import java.util.List;
 
 import javax.rad.genui.IFontAwesome;
 import javax.rad.genui.UIColor;
-import javax.rad.genui.UICursor;
 import javax.rad.genui.UIImage;
 import javax.rad.genui.component.UIButton;
 import javax.rad.genui.component.UIIcon;
@@ -223,8 +222,6 @@ public class KitchenSinkFrame extends UIFrame
 			UIButton button = new UIButton(sample.getName());
 			button.eventAction().addListener(pActionEvent ->
 			{
-				setCursor(UICursor.getPredefinedCursor(UICursor.WAIT_CURSOR));
-				
 				contentPanel.removeAll();
 				
 				try
@@ -235,8 +232,6 @@ public class KitchenSinkFrame extends UIFrame
 				{
 					th.printStackTrace();
 				}
-				
-				setCursor(UICursor.getPredefinedCursor(UICursor.DEFAULT_CURSOR));
 			});
 			
 			// And now add it.
