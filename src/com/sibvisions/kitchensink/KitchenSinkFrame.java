@@ -16,7 +16,6 @@
 package com.sibvisions.kitchensink;
 
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +86,7 @@ import com.sibvisions.kitchensink.samples.other.TooltipSample;
 import com.sibvisions.kitchensink.samples.other.TranslationSample;
 import com.sibvisions.kitchensink.samples.tests.ZOrderFormTestSample;
 import com.sibvisions.rad.ui.swing.impl.SwingFactory;
+import com.sibvisions.util.type.ExceptionUtil;
 import com.sibvisions.util.type.FileUtil;
 import com.sibvisions.util.type.ResourceUtil;
 
@@ -232,29 +232,38 @@ public class KitchenSinkFrame extends UIFrame
 	
 	/**
 	 * Gets the source code for the given class.
+	 * <p>
+	 * If an {@link Exception} occurred while fetching getting the source code,
+	 * the dumped exception will be returned as {@link String}.
 	 * 
 	 * @param pClass the {@link Class} for which to get the source code.
 	 * @return the source code for the given {@link Class}.
-	 * @throws UnsupportedEncodingException if UTF-8 could not be used.
 	 */
-	private String getSourceCode(Class<?> pClass) throws UnsupportedEncodingException
+	private String getSourceCode(Class<?> pClass)
 	{
-		String className = pClass.getName();
-		String resourcePath = "/" + className.replace(".", "/") + ".java";
-		
-		InputStream stream = ResourceUtil.getResourceAsStream(resourcePath);
-		
-		if (stream == null)
+		try
 		{
-			stream = ResourceUtil.getResourceAsStream("./src/" + resourcePath);
+			String className = pClass.getName();
+			String resourcePath = "/" + className.replace(".", "/") + ".java";
+			
+			InputStream stream = ResourceUtil.getResourceAsStream(resourcePath);
+			
+			if (stream == null)
+			{
+				stream = ResourceUtil.getResourceAsStream("./src/" + resourcePath);
+			}
+			
+			if (stream == null)
+			{
+				return "Source code could not be found.";
+			}
+			
+			return new String(FileUtil.getContent(stream), "UTF-8");
 		}
-		
-		if (stream == null)
+		catch (Exception e)
 		{
-			return "// Source code could not be found.";
+			return ExceptionUtil.dump(e, true);
 		}
-		
-		return new String(FileUtil.getContent(stream), "UTF-8");
 	}
 	
 	/**
@@ -327,24 +336,29 @@ public class KitchenSinkFrame extends UIFrame
 				try
 				{
 					contentPanel.add(sample.getContent(), UIBorderLayout.CENTER);
-					
-					String source = getSourceCode(sample.getClass());
-					
-					if (sourceTextArea instanceof UICustomComponent
-							&& sourceTextArea.getResource() instanceof RTextScrollPane)
-					{
-						RTextArea syntaxTextArea = ((RTextScrollPane)sourceTextArea.getResource()).getTextArea();
-						syntaxTextArea.setText(source);
-						syntaxTextArea.setCaretPosition(0);
-					}
-					else if (sourceTextArea instanceof ITextArea)
-					{
-						((ITextArea)sourceTextArea).setText(source);
-					}
 				}
-				catch (Throwable th)
+				catch (Exception e)
 				{
-					th.printStackTrace();
+					UITextArea errorTextArea = new UITextArea(ExceptionUtil.dump(e, true));
+					errorTextArea.setBorderVisible(false);
+					errorTextArea.setEnabled(false);
+					
+					contentPanel.removeAll();
+					contentPanel.add(errorTextArea, UIBorderLayout.CENTER);
+				}
+				
+				String source = getSourceCode(sample.getClass());
+				
+				if (sourceTextArea instanceof UICustomComponent
+						&& sourceTextArea.getResource() instanceof RTextScrollPane)
+				{
+					RTextArea syntaxTextArea = ((RTextScrollPane)sourceTextArea.getResource()).getTextArea();
+					syntaxTextArea.setText(source);
+					syntaxTextArea.setCaretPosition(0);
+				}
+				else if (sourceTextArea instanceof ITextArea)
+				{
+					((ITextArea)sourceTextArea).setText(source);
 				}
 			});
 			
