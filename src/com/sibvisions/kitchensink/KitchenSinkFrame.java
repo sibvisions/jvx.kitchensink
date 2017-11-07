@@ -132,13 +132,31 @@ public class KitchenSinkFrame extends UIFrame
 	// User-defined methods
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
+	/**
+	 * Adds a "border" to the given {@link IContainer}.
+	 * <p>
+	 * This actually works under the assumption that the {@link IContainer} has
+	 * a {@link UIFormLayout} set as layout. The "border" is actually a
+	 * stretched image which is added to the {@link IContainer} with the border
+	 * anchors as constraint, and then aligned to to look like a border at the
+	 * given edge.
+	 * 
+	 * @param pContainer the parent {@link IContainer}.
+	 * @param pHorizontalAlignment the horizontal alignment.
+	 * @param pVerticalAlignment the vertical alignment.
+	 */
 	private static void addBorder(IContainer pContainer, int pHorizontalAlignment, int pVerticalAlignment)
 	{
 		UIFormLayout layout = (UIFormLayout)pContainer.getLayout();
-		IConstraints constraints = layout.getConstraints(layout.getTopAnchor(), layout.getLeftAnchor(), layout.getBottomAnchor(), layout.getRightAnchor());
+		IConstraints constraints = layout.getConstraints(
+				layout.getTopAnchor(),
+				layout.getLeftAnchor(),
+				layout.getBottomAnchor(),
+				layout.getRightAnchor());
 		
 		UIIcon border = new UIIcon(UIImage.getImage("/com/sibvisions/kitchensink/images/border-pixel.png"));
 		border.setHorizontalAlignment(pHorizontalAlignment);
+		border.setPreserveAspectRatio(false);
 		border.setVerticalAlignment(pVerticalAlignment);
 		
 		pContainer.add(border, constraints);
