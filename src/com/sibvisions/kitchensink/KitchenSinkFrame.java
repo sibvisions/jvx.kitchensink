@@ -16,12 +16,18 @@
 package com.sibvisions.kitchensink;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.rad.genui.IFontAwesome;
 import javax.rad.genui.UIColor;
+import javax.rad.genui.UIFactoryManager;
 import javax.rad.genui.UIImage;
+import javax.rad.genui.celleditor.UICheckBoxCellEditor;
+import javax.rad.genui.celleditor.UIDateCellEditor;
+import javax.rad.genui.celleditor.UINumberCellEditor;
 import javax.rad.genui.component.UIButton;
 import javax.rad.genui.component.UICustomComponent;
 import javax.rad.genui.component.UIIcon;
@@ -36,6 +42,7 @@ import javax.rad.genui.layout.UIFormLayout;
 import javax.rad.ui.IAlignmentConstants;
 import javax.rad.ui.IComponent;
 import javax.rad.ui.IContainer;
+import javax.rad.ui.IFactory;
 import javax.rad.ui.component.ITextArea;
 import javax.rad.ui.layout.IFormLayout.IConstraints;
 
@@ -135,6 +142,23 @@ public class KitchenSinkFrame extends UIFrame
 		border.setVerticalAlignment(pVerticalAlignment);
 		
 		pContainer.add(border, constraints);
+	}
+	
+	/**
+	 * Registers the default cell editors.
+	 */
+	private static void registerDefaultCellEditors()
+	{
+		IFactory factory = UIFactoryManager.getFactory();
+		
+		UICheckBoxCellEditor checkBoxCellEditor = new UICheckBoxCellEditor(Boolean.TRUE, Boolean.FALSE);
+		checkBoxCellEditor.setText("");
+		factory.setDefaultCellEditor(Boolean.class, checkBoxCellEditor);
+		
+		UIDateCellEditor dateCellEditor = new UIDateCellEditor("dd.MM.yyyy HH:mm:ss");
+		factory.setDefaultCellEditor(Timestamp.class, dateCellEditor);
+		
+		factory.setDefaultCellEditor(BigDecimal.class, new UINumberCellEditor());
 	}
 	
 	/**
@@ -271,6 +295,9 @@ public class KitchenSinkFrame extends UIFrame
 	 */
 	private void initializeUI()
 	{
+		// Register the default cell editors.
+		registerDefaultCellEditors();
+		
 		// The layout for the panel of buttons of the samples.
 		UIFormLayout samplePanelLayout = new UIFormLayout();
 		
