@@ -26,6 +26,7 @@ import javax.rad.genui.layout.UIGridLayout;
 import javax.rad.model.ColumnDefinition;
 import javax.rad.model.IDataBook;
 import javax.rad.model.datatype.BigDecimalDataType;
+import javax.rad.model.datatype.StringDataType;
 import javax.rad.model.datatype.TimestampDataType;
 import javax.rad.ui.container.IPanel;
 import javax.rad.ui.control.IChart;
@@ -64,12 +65,13 @@ public class ChartSample extends AbstractSample implements ISample
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("VALUE", new BigDecimalDataType()));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("VALUEB", new BigDecimalDataType()));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("TIMESTAMP", new TimestampDataType()));
+		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("STRING", new StringDataType()));
 		dataBook.setName("DATA");
 		dataBook.open();
 		
 		Random random = new Random(0);
 		
-		for (int counter = 0; counter < 25; counter++)
+		for (int counter = 0; counter < 10; counter++)
 		{
 			BigDecimal value = BigDecimal.valueOf(random.nextInt(100));
 			BigDecimal valueB = BigDecimal.valueOf(random.nextInt(100));
@@ -78,20 +80,24 @@ public class ChartSample extends AbstractSample implements ISample
 			timestamp.add(Calendar.DAY_OF_YEAR, counter);
 			
 			dataBook.insert(false);
-			dataBook.setValues(null, new Object[] { value, valueB, new Timestamp(timestamp.getTime().getTime()) });
+			dataBook.setValues(null, new Object[] { value, valueB, new Timestamp(timestamp.getTime().getTime()), "" + timestamp.get(Calendar.DAY_OF_YEAR) });
 		}
 		
 		dataBook.saveAllRows();
 		dataBook.setSelectedRow(0);
 		
-		UIGridLayout contentLayout = new UIGridLayout(2, 2);
+		UIGridLayout contentLayout = new UIGridLayout(2, 4);
 		
 		UIPanel content = new UIPanel();
 		content.setLayout(contentLayout);
-		content.add(createChart(dataBook, "Area", UIChart.STYLE_AREA), contentLayout.getConstraints(0, 0));
-		content.add(createChart(dataBook, "Bars", UIChart.STYLE_BARS), contentLayout.getConstraints(1, 0));
-		content.add(createChart(dataBook, "Lines", UIChart.STYLE_LINES), contentLayout.getConstraints(0, 1));
-		content.add(createChart(dataBook, "Pie", UIChart.STYLE_PIE), contentLayout.getConstraints(1, 1));
+		content.add(createChart(dataBook, "Area", UIChart.STYLE_AREA, "TIMESTAMP", new String[] { "VALUE", "VALUEB" }), contentLayout.getConstraints(0, 0));
+		content.add(createChart(dataBook, "Bars", UIChart.STYLE_BARS, "TIMESTAMP", new String[] { "VALUE", "VALUEB" }), contentLayout.getConstraints(1, 0));
+		content.add(createChart(dataBook, "Lines", UIChart.STYLE_LINES, "TIMESTAMP", new String[] { "VALUE", "VALUEB" }), contentLayout.getConstraints(0, 1));
+		content.add(createChart(dataBook, "Pie", UIChart.STYLE_PIE, "TIMESTAMP", new String[] { "VALUE", "VALUEB" }), contentLayout.getConstraints(1, 1));
+		content.add(createChart(dataBook, "Area", UIChart.STYLE_AREA, "STRING", new String[] { "VALUE", "VALUEB" }), contentLayout.getConstraints(0, 2));
+		content.add(createChart(dataBook, "Bars", UIChart.STYLE_BARS, "STRING", new String[] { "VALUE", "VALUEB" }), contentLayout.getConstraints(1, 2));
+		content.add(createChart(dataBook, "Lines", UIChart.STYLE_LINES, "STRING", new String[] { "VALUE", "VALUEB" }), contentLayout.getConstraints(0, 3));
+		content.add(createChart(dataBook, "Pie", UIChart.STYLE_PIE, "STRING", new String[] { "VALUE" }), contentLayout.getConstraints(1, 3));
 		
 		return content;
 	}
@@ -109,16 +115,16 @@ public class ChartSample extends AbstractSample implements ISample
 	// User-defined methods
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
-	private IChart createChart(IDataBook pDataBook, String pTitle, int pChartStyle)
+	private IChart createChart(IDataBook pDataBook, String pTitle, int pChartStyle, String pXColumnName, String[] pYColumnNames)
 	{
 		UIChart chart = new UIChart();
 		chart.setChartStyle(pChartStyle);
 		chart.setDataBook(pDataBook);
 		chart.setTitle(pTitle);
 		chart.setXAxisTitle("Date");
-		chart.setXColumnName("TIMESTAMP");
+		chart.setXColumnName(pXColumnName);
 		chart.setYAxisTitle("Value");
-		chart.setYColumnNames(new String[] { "VALUE", "VALUEB" });
+		chart.setYColumnNames(pYColumnNames);
 		
 		return chart;
 	}
