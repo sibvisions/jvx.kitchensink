@@ -128,6 +128,165 @@ public class KitchenSinkFrame extends UIFrame
 		initializeUI();
 	}
 	
+	/**
+	 * Initializes the UI.
+	 */
+	private void initializeUI()
+	{
+		// Register the default cell editors.
+		registerDefaultCellEditors();
+		
+		// The layout for the panel of buttons of the samples.
+		UIFormLayout samplePanelLayout = new UIFormLayout();
+		
+		// The panel of buttons of the samples.
+		UIScrollPanel samplePanel = new UIScrollPanel();
+		samplePanel.setLayout(samplePanelLayout);
+		samplePanel.setBackground(new UIColor(0xf4f8fa));
+		
+		// The panel that is used to display the content of the sample.
+		UIPanel contentPanel = new UIPanel();
+		contentPanel.setLayout(new UIBorderLayout());
+		
+		IComponent sourceTextArea = createSourceViewer();
+		
+		// The panel that is used to display the source code of the sample.
+		UIPanel sourcePanel = new UIPanel();
+		sourcePanel.setLayout(new UIBorderLayout());
+		sourcePanel.add(sourceTextArea, UIBorderLayout.CENTER);
+		
+		// The tabset used to display the content.
+		UITabsetPanel contentTabsetPanel = new UITabsetPanel();
+		contentTabsetPanel.setBackground(contentPanel.getBackground());
+		contentTabsetPanel.add(contentPanel, "Sample");
+		contentTabsetPanel.add(sourcePanel, "Source");
+		
+		// Now we're setting up the list of buttons that you see on the left.
+		UIFormLayout categoryPanelLayout = null;
+		UIGroupPanel categoryPanel = null;
+		
+		// The "About JVx" component.
+		AboutJVxComponent aboutJVxComponent = new AboutJVxComponent();
+		
+		// The "About SIB Visions" component.
+		AboutSIBVisionsComponent aboutSIBVisionsComponent = new AboutSIBVisionsComponent();
+		
+		// Assuming that the buttons are in the correct order and are grouped
+		// by their group.
+		for (ISample sample : samples)
+		{
+			// Category setup.
+			if (categoryPanel == null || !categoryPanel.getText().equals(sample.getCategory()))
+			{
+				categoryPanelLayout = new UIFormLayout();
+				
+				categoryPanel = new UIGroupPanel(sample.getCategory());
+				categoryPanel.setLayout(categoryPanelLayout);
+				categoryPanel.setBackground(new UIColor(0xf4f8fa));
+				
+				samplePanel.add(categoryPanel, samplePanelLayout.getConstraints(0, samplePanel.getComponentCount(), -1, samplePanel.getComponentCount()));
+			}
+			
+			// Create the button of the sample.
+			UIButton button = new UIButton(sample.getName());
+			button.eventAction().addListener(pActionEvent ->
+			{
+				remove(aboutJVxComponent);
+				remove(aboutSIBVisionsComponent);
+				
+				add(contentTabsetPanel, UIBorderLayout.CENTER);
+				
+				contentPanel.removeAll();
+				
+				try
+				{
+					contentPanel.add(sample.getContent(), UIBorderLayout.CENTER);
+				}
+				catch (Exception e)
+				{
+					UITextArea errorTextArea = new UITextArea(ExceptionUtil.dump(e, true));
+					errorTextArea.setBorderVisible(false);
+					errorTextArea.setEnabled(false);
+					
+					contentPanel.removeAll();
+					contentPanel.add(errorTextArea, UIBorderLayout.CENTER);
+				}
+				
+				String source = getSourceCode(sample.getClass());
+				
+				if (sourceTextArea instanceof UICustomComponent
+						&& sourceTextArea.getResource() instanceof RTextScrollPane)
+				{
+					RTextArea syntaxTextArea = ((RTextScrollPane)sourceTextArea.getResource()).getTextArea();
+					syntaxTextArea.setText(source);
+					syntaxTextArea.setCaretPosition(0);
+				}
+				else if (sourceTextArea instanceof ITextArea)
+				{
+					((ITextArea)sourceTextArea).setText(source);
+				}
+			});
+			
+			// And now add it.
+			int count = categoryPanel.getComponentCount();
+			categoryPanel.add(button, categoryPanelLayout.getConstraints(0, count, -1, count));
+		}
+		
+		// The "About JVx" button in the top bar.
+		UIButton aboutJvxButton = new UIButton();
+		aboutJvxButton.setBorderOnMouseEntered(true);
+		aboutJvxButton.setFocusable(false);
+		aboutJvxButton.setHorizontalTextPosition(UIButton.ALIGN_CENTER);
+		aboutJvxButton.setImage(UIImage.getImage(IFontAwesome.INFO_CIRCLE_LARGE));
+		aboutJvxButton.setText("About JVx");
+		aboutJvxButton.setVerticalTextPosition(UIButton.ALIGN_BOTTOM);
+		aboutJvxButton.eventAction().addListener(pActionEvent ->
+		{
+			remove(contentTabsetPanel);
+			remove(aboutSIBVisionsComponent);
+			
+			add(aboutJVxComponent, UIBorderLayout.CENTER);
+		});
+		
+		// The "About SIB Visions" button in the top bar.
+		UIButton aboutSibVisionsButton = new UIButton();
+		aboutSibVisionsButton.setBorderOnMouseEntered(true);
+		aboutSibVisionsButton.setFocusable(false);
+		aboutSibVisionsButton.setHorizontalTextPosition(UIButton.ALIGN_CENTER);
+		aboutSibVisionsButton.setImage(UIImage.getImage(IFontAwesome.INFO_CIRCLE_LARGE));
+		aboutSibVisionsButton.setText("About SIB Visions");
+		aboutSibVisionsButton.setVerticalTextPosition(UIButton.ALIGN_BOTTOM);
+		aboutSibVisionsButton.eventAction().addListener(pActionEvent ->
+		{
+			remove(contentTabsetPanel);
+			remove(aboutJVxComponent);
+			
+			add(aboutSIBVisionsComponent, UIBorderLayout.CENTER);
+		});
+		
+		// The layout for the header panel.
+		UIFormLayout headerPanelLayout = new UIFormLayout();
+		
+		// The panel used for the top bar.
+		UIPanel headerPanel = new UIPanel();
+		headerPanel.setLayout(headerPanelLayout);
+		headerPanel.setBackground(UIColor.white);
+		headerPanel.add(new UIIcon(new UIImage("/com/sibvisions/kitchensink/images/jvx.png")), headerPanelLayout.getConstraints(0, 0));
+		headerPanel.add(aboutJvxButton, headerPanelLayout.getConstraints(-2, 0));
+		headerPanel.add(aboutSibVisionsButton, headerPanelLayout.getConstraints(-1, 0));
+		addBorder(headerPanel, IAlignmentConstants.ALIGN_STRETCH, IAlignmentConstants.ALIGN_BOTTOM);
+		
+		// Setting up the Frame.
+		setLayout(new UIBorderLayout());
+		setPreferredSize(800, 600);
+		setTitle("JVx KitchenSink");
+		
+		// Add the panels to the frame.
+		add(headerPanel, UIBorderLayout.NORTH);
+		add(aboutJVxComponent, UIBorderLayout.CENTER);
+		add(samplePanel, UIBorderLayout.WEST);
+	}
+	
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// User-defined methods
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -306,165 +465,6 @@ public class KitchenSinkFrame extends UIFrame
 		{
 			return ExceptionUtil.dump(e, true);
 		}
-	}
-	
-	/**
-	 * Initializes the UI.
-	 */
-	private void initializeUI()
-	{
-		// Register the default cell editors.
-		registerDefaultCellEditors();
-		
-		// The layout for the panel of buttons of the samples.
-		UIFormLayout samplePanelLayout = new UIFormLayout();
-		
-		// The panel of buttons of the samples.
-		UIScrollPanel samplePanel = new UIScrollPanel();
-		samplePanel.setLayout(samplePanelLayout);
-		samplePanel.setBackground(new UIColor(0xf4f8fa));
-		
-		// The panel that is used to display the content of the sample.
-		UIPanel contentPanel = new UIPanel();
-		contentPanel.setLayout(new UIBorderLayout());
-		
-		IComponent sourceTextArea = createSourceViewer();
-		
-		// The panel that is used to display the source code of the sample.
-		UIPanel sourcePanel = new UIPanel();
-		sourcePanel.setLayout(new UIBorderLayout());
-		sourcePanel.add(sourceTextArea, UIBorderLayout.CENTER);
-		
-		// The tabset used to display the content.
-		UITabsetPanel contentTabsetPanel = new UITabsetPanel();
-		contentTabsetPanel.setBackground(contentPanel.getBackground());
-		contentTabsetPanel.add(contentPanel, "Sample");
-		contentTabsetPanel.add(sourcePanel, "Source");
-		
-		// Now we're setting up the list of buttons that you see on the left.
-		UIFormLayout categoryPanelLayout = null;
-		UIGroupPanel categoryPanel = null;
-		
-		// The "About JVx" component.
-		AboutJVxComponent aboutJVxComponent = new AboutJVxComponent();
-		
-		// The "About SIB Visions" component.
-		AboutSIBVisionsComponent aboutSIBVisionsComponent = new AboutSIBVisionsComponent();
-		
-		// Assuming that the buttons are in the correct order and are grouped
-		// by their group.
-		for (ISample sample : samples)
-		{
-			// Category setup.
-			if (categoryPanel == null || !categoryPanel.getText().equals(sample.getCategory()))
-			{
-				categoryPanelLayout = new UIFormLayout();
-				
-				categoryPanel = new UIGroupPanel(sample.getCategory());
-				categoryPanel.setLayout(categoryPanelLayout);
-				categoryPanel.setBackground(new UIColor(0xf4f8fa));
-				
-				samplePanel.add(categoryPanel, samplePanelLayout.getConstraints(0, samplePanel.getComponentCount(), -1, samplePanel.getComponentCount()));
-			}
-			
-			// Create the button of the sample.
-			UIButton button = new UIButton(sample.getName());
-			button.eventAction().addListener(pActionEvent ->
-			{
-				remove(aboutJVxComponent);
-				remove(aboutSIBVisionsComponent);
-				
-				add(contentTabsetPanel, UIBorderLayout.CENTER);
-				
-				contentPanel.removeAll();
-				
-				try
-				{
-					contentPanel.add(sample.getContent(), UIBorderLayout.CENTER);
-				}
-				catch (Exception e)
-				{
-					UITextArea errorTextArea = new UITextArea(ExceptionUtil.dump(e, true));
-					errorTextArea.setBorderVisible(false);
-					errorTextArea.setEnabled(false);
-					
-					contentPanel.removeAll();
-					contentPanel.add(errorTextArea, UIBorderLayout.CENTER);
-				}
-				
-				String source = getSourceCode(sample.getClass());
-				
-				if (sourceTextArea instanceof UICustomComponent
-						&& sourceTextArea.getResource() instanceof RTextScrollPane)
-				{
-					RTextArea syntaxTextArea = ((RTextScrollPane)sourceTextArea.getResource()).getTextArea();
-					syntaxTextArea.setText(source);
-					syntaxTextArea.setCaretPosition(0);
-				}
-				else if (sourceTextArea instanceof ITextArea)
-				{
-					((ITextArea)sourceTextArea).setText(source);
-				}
-			});
-			
-			// And now add it.
-			int count = categoryPanel.getComponentCount();
-			categoryPanel.add(button, categoryPanelLayout.getConstraints(0, count, -1, count));
-		}
-		
-		// The "About JVx" button in the top bar.
-		UIButton aboutJvxButton = new UIButton();
-		aboutJvxButton.setBorderOnMouseEntered(true);
-		aboutJvxButton.setFocusable(false);
-		aboutJvxButton.setHorizontalTextPosition(UIButton.ALIGN_CENTER);
-		aboutJvxButton.setImage(UIImage.getImage(IFontAwesome.INFO_CIRCLE_LARGE));
-		aboutJvxButton.setText("About JVx");
-		aboutJvxButton.setVerticalTextPosition(UIButton.ALIGN_BOTTOM);
-		aboutJvxButton.eventAction().addListener(pActionEvent ->
-		{
-			remove(contentTabsetPanel);
-			remove(aboutSIBVisionsComponent);
-			
-			add(aboutJVxComponent, UIBorderLayout.CENTER);
-		});
-		
-		// The "About SIB Visions" button in the top bar.
-		UIButton aboutSibVisionsButton = new UIButton();
-		aboutSibVisionsButton.setBorderOnMouseEntered(true);
-		aboutSibVisionsButton.setFocusable(false);
-		aboutSibVisionsButton.setHorizontalTextPosition(UIButton.ALIGN_CENTER);
-		aboutSibVisionsButton.setImage(UIImage.getImage(IFontAwesome.INFO_CIRCLE_LARGE));
-		aboutSibVisionsButton.setText("About SIB Visions");
-		aboutSibVisionsButton.setVerticalTextPosition(UIButton.ALIGN_BOTTOM);
-		aboutSibVisionsButton.eventAction().addListener(pActionEvent ->
-		{
-			remove(contentTabsetPanel);
-			remove(aboutJVxComponent);
-			
-			add(aboutSIBVisionsComponent, UIBorderLayout.CENTER);
-		});
-		
-		// The layout for the header panel.
-		UIFormLayout headerPanelLayout = new UIFormLayout();
-		
-		// The panel used for the top bar.
-		UIPanel headerPanel = new UIPanel();
-		headerPanel.setLayout(headerPanelLayout);
-		headerPanel.setBackground(UIColor.white);
-		headerPanel.add(new UIIcon(new UIImage("/com/sibvisions/kitchensink/images/jvx.png")), headerPanelLayout.getConstraints(0, 0));
-		headerPanel.add(aboutJvxButton, headerPanelLayout.getConstraints(-2, 0));
-		headerPanel.add(aboutSibVisionsButton, headerPanelLayout.getConstraints(-1, 0));
-		addBorder(headerPanel, IAlignmentConstants.ALIGN_STRETCH, IAlignmentConstants.ALIGN_BOTTOM);
-		
-		// Setting up the Frame.
-		setLayout(new UIBorderLayout());
-		setPreferredSize(800, 600);
-		setTitle("JVx KitchenSink");
-		
-		// Add the panels to the frame.
-		add(headerPanel, UIBorderLayout.NORTH);
-		add(aboutJVxComponent, UIBorderLayout.CENTER);
-		add(samplePanel, UIBorderLayout.WEST);
 	}
 	
 }	// KitchenSinkFrame
