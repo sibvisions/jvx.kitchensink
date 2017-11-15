@@ -278,6 +278,7 @@ public class KitchenSinkFrame extends UIFrame
 		
 		// Setting up the Frame.
 		setLayout(new UIBorderLayout());
+		setIconImage(UIImage.getImage("/com/sibvisions/kitchensink/images/icon.png"));
 		setPreferredSize(800, 600);
 		setTitle("JVx KitchenSink");
 		
