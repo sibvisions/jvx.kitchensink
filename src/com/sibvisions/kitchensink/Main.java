@@ -15,14 +15,7 @@
  */
 package com.sibvisions.kitchensink;
 
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-
 import javax.rad.genui.UIFactoryManager;
-import javax.rad.genui.celleditor.UICheckBoxCellEditor;
-import javax.rad.genui.celleditor.UIDateCellEditor;
-import javax.rad.genui.celleditor.UINumberCellEditor;
-import javax.rad.ui.IFactory;
 import javax.swing.UIManager;
 
 import com.sibvisions.rad.ui.swing.impl.SwingFactory;
@@ -85,9 +78,6 @@ public final class Main
 			// on the UI thread of the specified technology.
 			UIFactoryManager.getFactory().invokeAndWait(() ->
 			{
-				// Register the default cell editors.
-				registerDefaultCellEditors();
-				
 				// Create the main frame.
 				KitchenSinkFrame frame = new KitchenSinkFrame();
 				frame.pack();
@@ -106,23 +96,6 @@ public final class Main
 			
 			System.exit(1);
 		}
-	}
-	
-	/**
-	 * Registers the default cell editors.
-	 */
-	private static void registerDefaultCellEditors()
-	{
-		IFactory factory = UIFactoryManager.getFactory();
-		
-		UICheckBoxCellEditor checkBoxCellEditor = new UICheckBoxCellEditor(Boolean.TRUE, Boolean.FALSE);
-		checkBoxCellEditor.setText("");
-		factory.setDefaultCellEditor(Boolean.class, checkBoxCellEditor);
-		
-		UIDateCellEditor dateCellEditor = new UIDateCellEditor("dd.MM.yyyy HH:mm:ss");
-		factory.setDefaultCellEditor(Timestamp.class, dateCellEditor);
-		
-		factory.setDefaultCellEditor(BigDecimal.class, new UINumberCellEditor());
 	}
 	
 }	// Main

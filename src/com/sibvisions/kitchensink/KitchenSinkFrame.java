@@ -16,12 +16,18 @@
 package com.sibvisions.kitchensink;
 
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.rad.genui.IFontAwesome;
 import javax.rad.genui.UIColor;
+import javax.rad.genui.UIFactoryManager;
 import javax.rad.genui.UIImage;
+import javax.rad.genui.celleditor.UICheckBoxCellEditor;
+import javax.rad.genui.celleditor.UIDateCellEditor;
+import javax.rad.genui.celleditor.UINumberCellEditor;
 import javax.rad.genui.component.UIButton;
 import javax.rad.genui.component.UICustomComponent;
 import javax.rad.genui.component.UIIcon;
@@ -36,6 +42,7 @@ import javax.rad.genui.layout.UIFormLayout;
 import javax.rad.ui.IAlignmentConstants;
 import javax.rad.ui.IComponent;
 import javax.rad.ui.IContainer;
+import javax.rad.ui.IFactory;
 import javax.rad.ui.component.ITextArea;
 import javax.rad.ui.layout.IFormLayout.IConstraints;
 
@@ -121,156 +128,14 @@ public class KitchenSinkFrame extends UIFrame
 		initializeUI();
 	}
 	
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// User-defined methods
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	
-	private static void addBorder(IContainer pContainer, int pHorizontalAlignment, int pVerticalAlignment)
-	{
-		UIFormLayout layout = (UIFormLayout)pContainer.getLayout();
-		IConstraints constraints = layout.getConstraints(layout.getTopAnchor(), layout.getLeftAnchor(), layout.getBottomAnchor(), layout.getRightAnchor());
-		
-		UIIcon border = new UIIcon(UIImage.getImage("/com/sibvisions/kitchensink/images/border-pixel.png"));
-		border.setHorizontalAlignment(pHorizontalAlignment);
-		border.setVerticalAlignment(pVerticalAlignment);
-		
-		pContainer.add(border, constraints);
-	}
-	
-	/**
-	 * Creates a new source viewer component and returns it.
-	 * 
-	 * @param pSource the source to display.
-	 * @return the new source viewer component.
-	 */
-	protected IComponent createSourceViewer()
-	{
-		if (getFactory() instanceof SwingFactory)
-		{
-			RSyntaxTextArea textArea = new RSyntaxTextArea();
-			textArea.setAutoIndentEnabled(true);
-			textArea.setBracketMatchingEnabled(true);
-			textArea.setCaretPosition(0);
-			textArea.setClearWhitespaceLinesEnabled(false);
-			textArea.setCloseCurlyBraces(true);
-			textArea.setLineWrap(false);
-			textArea.setEditable(false);
-			textArea.setMarkOccurrences(true);
-			textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-			textArea.setTabSize(4);
-			textArea.setWhitespaceVisible(false);
-			
-			return new UICustomComponent(new RTextScrollPane(textArea, true));
-		}
-		else
-		{
-			UITextArea textArea = new UITextArea();
-			
-			return textArea;
-		}
-	}
-	
-	/**
-	 * Collects and adds all {@link ISample}s to the {@link #samples list of
-	 * samples}.
-	 */
-	private void collectAndAddSamples()
-	{
-		samples = new ArrayList<>();
-		
-		// Components
-		samples.add(new ButtonSample());
-		samples.add(new CheckBoxSample());
-		samples.add(new IconSample());
-		samples.add(new LabelSample());
-		samples.add(new MenuBarSample());
-		samples.add(new PasswordFieldSample());
-		samples.add(new RadioButtonSample());
-		samples.add(new TextAreaSample());
-		samples.add(new TextFieldSample());
-		samples.add(new ToggleButtonSample());
-		samples.add(new ToolBarSample());
-		
-		// Containers
-		samples.add(new GroupPanelSample());
-		samples.add(new MdiSample());
-		samples.add(new PanelSample());
-		samples.add(new ScrollPanelSample());
-		samples.add(new SplitPanelSample());
-		samples.add(new TabsetPanelSample());
-		
-		// Layouts
-		samples.add(new BorderLayoutSample());
-		samples.add(new FlowLayoutSample());
-		samples.add(new FormLayoutSample());
-		samples.add(new GridLayoutSample());
-		samples.add(new NullLayoutSample());
-		
-		// Model
-		samples.add(new ChartSample());
-		samples.add(new DataBindingSample());
-		samples.add(new MasterDetailSample());
-		samples.add(new MasterDetail2Sample());
-		samples.add(new SelfJoinedSample());
-		samples.add(new StyledTableSample());
-		samples.add(new StyledTreeSample());
-		
-		// Other
-		samples.add(new CaptureSample());
-		samples.add(new CursorSample());
-		samples.add(new EventsSample());
-		samples.add(new FontSample());
-		samples.add(new FontAwesomeSample());
-		samples.add(new PopupMenuSample());
-		samples.add(new TabIndexSample());
-		samples.add(new TooltipSample());
-		samples.add(new TranslationSample());
-		
-		// Tests
-		samples.add(new ZOrderFormTestSample());
-	}
-	
-	/**
-	 * Gets the source code for the given class.
-	 * <p>
-	 * If an {@link Exception} occurred while fetching getting the source code,
-	 * the dumped exception will be returned as {@link String}.
-	 * 
-	 * @param pClass the {@link Class} for which to get the source code.
-	 * @return the source code for the given {@link Class}.
-	 */
-	private String getSourceCode(Class<?> pClass)
-	{
-		try
-		{
-			String className = pClass.getName();
-			String resourcePath = "/" + className.replace(".", "/") + ".java";
-			
-			InputStream stream = ResourceUtil.getResourceAsStream(resourcePath);
-			
-			if (stream == null)
-			{
-				stream = ResourceUtil.getResourceAsStream("./src/" + resourcePath);
-			}
-			
-			if (stream == null)
-			{
-				return "Source code could not be found.";
-			}
-			
-			return new String(FileUtil.getContent(stream), "UTF-8");
-		}
-		catch (Exception e)
-		{
-			return ExceptionUtil.dump(e, true);
-		}
-	}
-	
 	/**
 	 * Initializes the UI.
 	 */
 	private void initializeUI()
 	{
+		// Register the default cell editors.
+		registerDefaultCellEditors();
+		
 		// The layout for the panel of buttons of the samples.
 		UIFormLayout samplePanelLayout = new UIFormLayout();
 		
@@ -413,6 +278,7 @@ public class KitchenSinkFrame extends UIFrame
 		
 		// Setting up the Frame.
 		setLayout(new UIBorderLayout());
+		setIconImage(UIImage.getImage("/com/sibvisions/kitchensink/images/icon.png"));
 		setPreferredSize(800, 600);
 		setTitle("JVx KitchenSink");
 		
@@ -420,6 +286,186 @@ public class KitchenSinkFrame extends UIFrame
 		add(headerPanel, UIBorderLayout.NORTH);
 		add(aboutJVxComponent, UIBorderLayout.CENTER);
 		add(samplePanel, UIBorderLayout.WEST);
+	}
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// User-defined methods
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	/**
+	 * Adds a "border" to the given {@link IContainer}.
+	 * <p>
+	 * This actually works under the assumption that the {@link IContainer} has
+	 * a {@link UIFormLayout} set as layout. The "border" is actually a
+	 * stretched image which is added to the {@link IContainer} with the border
+	 * anchors as constraint, and then aligned to to look like a border at the
+	 * given edge.
+	 * 
+	 * @param pContainer the parent {@link IContainer}.
+	 * @param pHorizontalAlignment the horizontal alignment.
+	 * @param pVerticalAlignment the vertical alignment.
+	 */
+	private static void addBorder(IContainer pContainer, int pHorizontalAlignment, int pVerticalAlignment)
+	{
+		UIFormLayout layout = (UIFormLayout)pContainer.getLayout();
+		IConstraints constraints = layout.getConstraints(
+				layout.getTopAnchor(),
+				layout.getLeftAnchor(),
+				layout.getBottomAnchor(),
+				layout.getRightAnchor());
+		
+		UIIcon border = new UIIcon(UIImage.getImage("/com/sibvisions/kitchensink/images/border-pixel.png"));
+		border.setHorizontalAlignment(pHorizontalAlignment);
+		border.setPreserveAspectRatio(false);
+		border.setVerticalAlignment(pVerticalAlignment);
+		
+		pContainer.add(border, constraints);
+	}
+	
+	/**
+	 * Registers the default cell editors.
+	 */
+	private static void registerDefaultCellEditors()
+	{
+		IFactory factory = UIFactoryManager.getFactory();
+		
+		UICheckBoxCellEditor checkBoxCellEditor = new UICheckBoxCellEditor(Boolean.TRUE, Boolean.FALSE);
+		checkBoxCellEditor.setText("");
+		factory.setDefaultCellEditor(Boolean.class, checkBoxCellEditor);
+		
+		UIDateCellEditor dateCellEditor = new UIDateCellEditor("dd.MM.yyyy HH:mm:ss");
+		factory.setDefaultCellEditor(Timestamp.class, dateCellEditor);
+		
+		factory.setDefaultCellEditor(BigDecimal.class, new UINumberCellEditor());
+	}
+	
+	/**
+	 * Creates a new source viewer component and returns it.
+	 * 
+	 * @param pSource the source to display.
+	 * @return the new source viewer component.
+	 */
+	protected IComponent createSourceViewer()
+	{
+		if (getFactory() instanceof SwingFactory)
+		{
+			RSyntaxTextArea textArea = new RSyntaxTextArea();
+			textArea.setAutoIndentEnabled(true);
+			textArea.setBracketMatchingEnabled(true);
+			textArea.setCaretPosition(0);
+			textArea.setClearWhitespaceLinesEnabled(false);
+			textArea.setCloseCurlyBraces(true);
+			textArea.setLineWrap(false);
+			textArea.setEditable(false);
+			textArea.setMarkOccurrences(true);
+			textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+			textArea.setTabSize(4);
+			textArea.setWhitespaceVisible(false);
+			
+			return new UICustomComponent(new RTextScrollPane(textArea, true));
+		}
+		else
+		{
+			UITextArea textArea = new UITextArea();
+			
+			return textArea;
+		}
+	}
+	
+	/**
+	 * Collects and adds all {@link ISample}s to the {@link #samples list of
+	 * samples}.
+	 */
+	private void collectAndAddSamples()
+	{
+		samples = new ArrayList<>();
+		
+		// Components
+		samples.add(new ButtonSample());
+		samples.add(new CheckBoxSample());
+		samples.add(new IconSample());
+		samples.add(new LabelSample());
+		samples.add(new MenuBarSample());
+		samples.add(new PasswordFieldSample());
+		samples.add(new RadioButtonSample());
+		samples.add(new TextAreaSample());
+		samples.add(new TextFieldSample());
+		samples.add(new ToggleButtonSample());
+		samples.add(new ToolBarSample());
+		
+		// Containers
+		samples.add(new GroupPanelSample());
+		samples.add(new MdiSample());
+		samples.add(new PanelSample());
+		samples.add(new ScrollPanelSample());
+		samples.add(new SplitPanelSample());
+		samples.add(new TabsetPanelSample());
+		
+		// Layouts
+		samples.add(new BorderLayoutSample());
+		samples.add(new FlowLayoutSample());
+		samples.add(new FormLayoutSample());
+		samples.add(new GridLayoutSample());
+		samples.add(new NullLayoutSample());
+		
+		// Model
+		samples.add(new ChartSample());
+		samples.add(new DataBindingSample());
+		samples.add(new MasterDetailSample());
+		samples.add(new MasterDetail2Sample());
+		samples.add(new SelfJoinedSample());
+		samples.add(new StyledTableSample());
+		samples.add(new StyledTreeSample());
+		
+		// Other
+		samples.add(new CaptureSample());
+		samples.add(new CursorSample());
+		samples.add(new EventsSample());
+		samples.add(new FontSample());
+		samples.add(new FontAwesomeSample());
+		samples.add(new PopupMenuSample());
+		samples.add(new TabIndexSample());
+		samples.add(new TooltipSample());
+		samples.add(new TranslationSample());
+		
+		// Tests
+		samples.add(new ZOrderFormTestSample());
+	}
+	
+	/**
+	 * Gets the source code for the given class.
+	 * <p>
+	 * If an {@link Exception} occurred while fetching getting the source code,
+	 * the dumped exception will be returned as {@link String}.
+	 * 
+	 * @param pClass the {@link Class} for which to get the source code.
+	 * @return the source code for the given {@link Class}.
+	 */
+	private String getSourceCode(Class<?> pClass)
+	{
+		try
+		{
+			String className = pClass.getName();
+			String resourcePath = "/" + className.replace(".", "/") + ".java";
+			
+			InputStream stream = ResourceUtil.getResourceAsStream(resourcePath);
+			
+			if (stream == null)
+			{
+				stream = ResourceUtil.getResourceAsStream("./src/" + resourcePath);
+			}
+			
+			if (stream == null)
+			{
+				return "Source code could not be found.";
+			}
+			
+			return new String(FileUtil.getContent(stream), "UTF-8");
+		}
+		catch (Exception e)
+		{
+			return ExceptionUtil.dump(e, true);
+		}
 	}
 	
 }	// KitchenSinkFrame

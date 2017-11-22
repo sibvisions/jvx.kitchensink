@@ -87,7 +87,11 @@
 				<include name="**/*.png" />
 			</zipfileset>
 		</jar>
-		<copy file="lib/jvx-2.7-nightly.jar" todir="${release}" />
+		<copy todir="${release}">
+			<fileset dir="${lib}">
+				<include name="**/*.jar"/>
+			</fileset>
+		</copy>
 	</target>
 
 	<!--
