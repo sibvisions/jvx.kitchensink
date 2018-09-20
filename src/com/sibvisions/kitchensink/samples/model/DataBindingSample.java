@@ -230,8 +230,10 @@ public class DataBindingSample extends AbstractSample implements ISample
 	 */
 	private void addEditor(UIPanel pPanel, IDataRow pDataRow, String pColumnName) throws ModelException
 	{
+		UIEditor editor = new UIEditor(pDataRow, pColumnName);
+		editor.setPlaceholderVisible(true);
 		pPanel.add(new UILabel(pColumnName));
-		pPanel.add(new UIEditor(pDataRow, pColumnName));
+		pPanel.add(editor);
 	}
 	
 }	// DataBindingSample
