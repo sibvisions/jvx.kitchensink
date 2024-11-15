@@ -17,26 +17,26 @@ package com.sibvisions.kitchensink.samples.containers;
 
 import java.math.BigDecimal;
 
-import javax.rad.genui.component.UICheckBox;
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.component.UITextField;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.container.UISplitPanel;
-import javax.rad.genui.container.UITabsetPanel;
-import javax.rad.genui.control.UIEditor;
-import javax.rad.genui.control.UITable;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.genui.layout.UIFlowLayout;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.IDataRow;
-import javax.rad.model.ModelException;
-import javax.rad.model.datatype.BigDecimalDataType;
-import javax.rad.model.datatype.BooleanDataType;
-import javax.rad.model.ui.ICellEditor;
-import javax.rad.ui.IColor;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.component.UICheckBox;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.component.UITextField;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.container.UISplitPanel;
+import jvx.rad.genui.container.UITabsetPanel;
+import jvx.rad.genui.control.UIEditor;
+import jvx.rad.genui.control.UITable;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.genui.layout.UIFlowLayout;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.IDataRow;
+import jvx.rad.model.ModelException;
+import jvx.rad.model.datatype.BigDecimalDataType;
+import jvx.rad.model.datatype.BooleanDataType;
+import jvx.rad.model.ui.ICellEditor;
+import jvx.rad.ui.IColor;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.Tango;
@@ -71,7 +71,7 @@ public class TabsetPanelSample extends AbstractSample implements ISample
 	public IPanel getContent() throws ModelException
 	{
 		UITabsetPanel tabset = new UITabsetPanel();
-		tabset.setDragable(true);
+		tabset.setDraggable(true);
 		tabset.add(createTab(Tango.BUTTER_1), "First");
 		tabset.add(createTab(Tango.CHAMELEON_1), "Second");
 		tabset.add(createTab(Tango.SKY_BLUE_1), "Third");
@@ -96,12 +96,9 @@ public class TabsetPanelSample extends AbstractSample implements ISample
 		
 		IDataBook eventsDataBook = createEventsDataBook();
 		
-		tabset.eventTabActivated()
-				.addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Activated - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
-		tabset.eventTabClosed()
-				.addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Closed - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
-		tabset.eventTabDeactivated()
-				.addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Deactivated - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
+		tabset.eventTabActivated().addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Activated - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
+		tabset.eventTabClosed().addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Closed - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
+		tabset.eventTabDeactivated().addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Deactivated - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
 		tabset.eventTabMoved().addListener(pTabsetEvent -> insertEvent(eventsDataBook, "Tab Moved - Old: " + pTabsetEvent.getOldIndex() + " - New: " + pTabsetEvent.getNewIndex()));
 		
 		UITable eventsTable = new UITable(eventsDataBook);
@@ -121,15 +118,15 @@ public class TabsetPanelSample extends AbstractSample implements ISample
 		controlsBook.insert(false);
 		controlsBook.setValue("PLACEMENT", new BigDecimal(tabset.getTabPlacement()));
 		controlsBook.setValue("NAVIGATION_KEYS", Boolean.valueOf(tabset.isNavigationKeysEnabled()));
-		controlsBook.setValue("DRAGGABLE", Boolean.valueOf(tabset.isDragable()));
+		controlsBook.setValue("DRAGGABLE", Boolean.valueOf(tabset.isDraggable()));
 		
 		controlsBook.eventValuesChanged().addListener(pDataRowEvent ->
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			tabset.setTabPlacement(((BigDecimal)dataRow.getValue("PLACEMENT")).intValue());
-			tabset.setNavigationKeysEnabled(((Boolean)dataRow.getValue("NAVIGATION_KEYS")).booleanValue());
-			tabset.setDragable(((Boolean)dataRow.getValue("DRAGGABLE")).booleanValue());
+			tabset.setTabPlacement(((BigDecimal) dataRow.getValue("PLACEMENT")).intValue());
+			tabset.setNavigationKeysEnabled(((Boolean) dataRow.getValue("NAVIGATION_KEYS")).booleanValue());
+			tabset.setDraggable(((Boolean) dataRow.getValue("DRAGGABLE")).booleanValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();

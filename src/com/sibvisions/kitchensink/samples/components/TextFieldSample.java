@@ -17,19 +17,18 @@ package com.sibvisions.kitchensink.samples.components;
 
 import java.math.BigDecimal;
 
-import javax.rad.genui.UIColor;
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.component.UITextField;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.control.UIEditor;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.IDataRow;
-import javax.rad.model.datatype.BigDecimalDataType;
-import javax.rad.model.datatype.BooleanDataType;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.component.UITextField;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.control.UIEditor;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.IDataRow;
+import jvx.rad.model.datatype.BigDecimalDataType;
+import jvx.rad.model.datatype.BooleanDataType;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.samples.AbstractSample;
@@ -64,15 +63,9 @@ public class TextFieldSample extends AbstractSample implements ISample
 		UITextField textField = new UITextField("This is some text.");
 		textField.setColumns(15);
 		
-		UITextField coloredTextField = new UITextField("This is some text.");
-		coloredTextField.setBackground(UIColor.yellow);
-		coloredTextField.setColumns(15);
-		coloredTextField.setForeground(UIColor.magenta);
-		
 		UIPanel container = new UIPanel();
 		container.setLayout(new UIFormLayout());
 		container.add(textField);
-		container.add(coloredTextField);
 		
 		IDataBook controlsBook = new MemDataBook();
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("BORDER", new BooleanDataType()));
@@ -88,19 +81,13 @@ public class TextFieldSample extends AbstractSample implements ISample
 		controlsBook.setValue("HORIZONTAL_ALIGNMENT", new BigDecimal(textField.getHorizontalAlignment()));
 		controlsBook.setValue("VERTICAL_ALIGNMENT", new BigDecimal(textField.getVerticalAlignment()));
 		
-		controlsBook.eventValuesChanged().addListener((pDataRowEvent) ->
-		{
+		controlsBook.eventValuesChanged().addListener((pDataRowEvent) -> {
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			textField.setBorderVisible(((Boolean)dataRow.getValue("BORDER")).booleanValue());
-			textField.setEditable(((Boolean)dataRow.getValue("EDITABLE")).booleanValue());
-			textField.setHorizontalAlignment(((BigDecimal)dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
-			textField.setVerticalAlignment(((BigDecimal)dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
-			
-			coloredTextField.setBorderVisible(((Boolean)dataRow.getValue("BORDER")).booleanValue());
-			coloredTextField.setEditable(((Boolean)dataRow.getValue("EDITABLE")).booleanValue());
-			coloredTextField.setHorizontalAlignment(((BigDecimal)dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
-			coloredTextField.setVerticalAlignment(((BigDecimal)dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
+			textField.setBorderVisible(((Boolean) dataRow.getValue("BORDER")).booleanValue());
+			textField.setEditable(((Boolean) dataRow.getValue("EDITABLE")).booleanValue());
+			textField.setHorizontalAlignment(((BigDecimal) dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
+			textField.setVerticalAlignment(((BigDecimal) dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();

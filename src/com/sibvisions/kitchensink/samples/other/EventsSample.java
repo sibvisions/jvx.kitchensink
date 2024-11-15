@@ -15,12 +15,12 @@
  */
 package com.sibvisions.kitchensink.samples.other;
 
-import javax.rad.genui.component.UITextField;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.control.UITable;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.model.IDataBook;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.component.UITextField;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.control.UITable;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.model.IDataBook;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.samples.AbstractSample;

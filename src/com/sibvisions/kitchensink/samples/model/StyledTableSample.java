@@ -15,20 +15,20 @@
  */
 package com.sibvisions.kitchensink.samples.model;
 
-import javax.rad.genui.UIFont;
-import javax.rad.genui.UIImage;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.control.UICellFormat;
-import javax.rad.genui.control.UITable;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.IDataPage;
-import javax.rad.model.IDataRow;
-import javax.rad.ui.IFont;
-import javax.rad.ui.container.IPanel;
-import javax.rad.ui.control.ICellFormat;
-import javax.rad.ui.control.ICellFormatter;
+import jvx.rad.genui.UIFont;
+import jvx.rad.genui.UIImage;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.control.UICellFormat;
+import jvx.rad.genui.control.UITable;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.IDataPage;
+import jvx.rad.model.IDataRow;
+import jvx.rad.ui.IFont;
+import jvx.rad.ui.container.IPanel;
+import jvx.rad.ui.control.ICellFormat;
+import jvx.rad.ui.control.ICellFormatter;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.Tango;

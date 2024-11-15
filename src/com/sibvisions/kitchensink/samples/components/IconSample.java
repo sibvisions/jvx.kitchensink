@@ -17,19 +17,18 @@ package com.sibvisions.kitchensink.samples.components;
 
 import java.math.BigDecimal;
 
-import javax.rad.genui.UIImage;
-import javax.rad.genui.component.UIIcon;
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.control.UIEditor;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.IDataRow;
-import javax.rad.model.datatype.BigDecimalDataType;
-import javax.rad.model.datatype.BooleanDataType;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.UIImage;
+import jvx.rad.genui.component.UIIcon;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.control.UIEditor;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.IDataRow;
+import jvx.rad.model.datatype.BigDecimalDataType;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.samples.AbstractSample;
@@ -69,23 +68,19 @@ public class IconSample extends AbstractSample implements ISample
 		IDataBook controlsBook = new MemDataBook();
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("HORIZONTAL_ALIGNMENT", new BigDecimalDataType(createHorizontalAlignmentCellEditor())));
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("VERTICAL_ALIGNMENT", new BigDecimalDataType(createVerticalAlignmentCellEditor())));
-		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("ASPECT_RATIO", new BooleanDataType()));
-		
 		controlsBook.setName("CONTROLS");
 		controlsBook.open();
 		
 		controlsBook.insert(false);
 		controlsBook.setValue("HORIZONTAL_ALIGNMENT", new BigDecimal(icon.getHorizontalAlignment()));
 		controlsBook.setValue("VERTICAL_ALIGNMENT", new BigDecimal(icon.getVerticalAlignment()));
-		controlsBook.setValue("ASPECT_RATIO", new Boolean(icon.isPreserveAspectRatio()));
 		
 		controlsBook.eventValuesChanged().addListener(pDataRowEvent ->
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			icon.setHorizontalAlignment(((BigDecimal)dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
-			icon.setVerticalAlignment(((BigDecimal)dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
-			icon.setPreserveAspectRatio(((Boolean)dataRow.getValue("ASPECT_RATIO")).booleanValue());
+			icon.setHorizontalAlignment(((BigDecimal) dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
+			icon.setVerticalAlignment(((BigDecimal) dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();
@@ -97,9 +92,6 @@ public class IconSample extends AbstractSample implements ISample
 		
 		controls.add(new UILabel("Vertical Alignment"), controlsLayout.getConstraints(2, 0));
 		controls.add(new UIEditor(controlsBook, "VERTICAL_ALIGNMENT"), controlsLayout.getConstraints(3, 0));
-		
-		controls.add(new UILabel("Keep Aspect Ratio"), controlsLayout.getConstraints(4, 0));
-		controls.add(new UIEditor(controlsBook, "ASPECT_RATIO"), controlsLayout.getConstraints(5, 0));
 		
 		controls.add(new UILabel("The above image is CIExy1931_sRGB, CC-BY-SA 3.0"), controlsLayout.getConstraints(0, -2, -1, -2));
 		controls.add(new UILabel("http://commons.wikimedia.org/wiki/Colors#mediaviewer/File:CIExy1931_sRGB.png"), controlsLayout.getConstraints(0, -1, -1, -1));

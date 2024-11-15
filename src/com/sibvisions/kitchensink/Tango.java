@@ -15,8 +15,8 @@
  */
 package com.sibvisions.kitchensink;
 
-import javax.rad.genui.UIColor;
-import javax.rad.ui.IColor;
+import jvx.rad.genui.UIColor;
+import jvx.rad.ui.IColor;
 
 /**
  * A static container for {@link IColor} constants.

@@ -15,10 +15,10 @@
  */
 package com.sibvisions.kitchensink.samples.layouts;
 
-import javax.rad.genui.UIRectangle;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.model.ModelException;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.UIRectangle;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.model.ModelException;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.Tango;

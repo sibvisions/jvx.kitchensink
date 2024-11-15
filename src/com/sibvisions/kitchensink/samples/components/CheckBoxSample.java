@@ -15,8 +15,8 @@
  */
 package com.sibvisions.kitchensink.samples.components;
 
-import javax.rad.genui.component.UICheckBox;
-import javax.rad.ui.component.IButton;
+import jvx.rad.genui.component.UICheckBox;
+import jvx.rad.ui.component.IButton;
 
 import com.sibvisions.kitchensink.ISample;
 

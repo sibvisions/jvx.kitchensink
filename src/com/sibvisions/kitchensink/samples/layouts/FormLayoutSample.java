@@ -17,20 +17,20 @@ package com.sibvisions.kitchensink.samples.layouts;
 
 import java.math.BigDecimal;
 
-import javax.rad.genui.UIInsets;
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.container.UISplitPanel;
-import javax.rad.genui.control.UIEditor;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.IDataRow;
-import javax.rad.model.ModelException;
-import javax.rad.model.datatype.BigDecimalDataType;
-import javax.rad.ui.container.IPanel;
-import javax.rad.ui.container.ISplitPanel;
+import jvx.rad.genui.UIInsets;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.container.UISplitPanel;
+import jvx.rad.genui.control.UIEditor;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.IDataRow;
+import jvx.rad.model.ModelException;
+import jvx.rad.model.datatype.BigDecimalDataType;
+import jvx.rad.ui.container.IPanel;
+import jvx.rad.ui.container.ISplitPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.Tango;
@@ -151,21 +151,21 @@ public class FormLayoutSample extends AbstractSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			constraintBasedLayout.setHorizontalGap(((BigDecimal)dataRow.getValue("HORIZONTAL_GAP")).intValue());
-			constraintBasedLayout.setVerticalGap(((BigDecimal)dataRow.getValue("VERTICAL_GAP")).intValue());
+			constraintBasedLayout.setHorizontalGap(((BigDecimal) dataRow.getValue("HORIZONTAL_GAP")).intValue());
+			constraintBasedLayout.setVerticalGap(((BigDecimal) dataRow.getValue("VERTICAL_GAP")).intValue());
 			constraintBasedLayout.setMargins(new UIInsets(
-					((BigDecimal)dataRow.getValue("MARGIN_TOP")).intValue(),
-					((BigDecimal)dataRow.getValue("MARGIN_LEFT")).intValue(),
-					((BigDecimal)dataRow.getValue("MARGIN_BOTTOM")).intValue(),
-					((BigDecimal)dataRow.getValue("MARGIN_RIGHT")).intValue()));
+					((BigDecimal) dataRow.getValue("MARGIN_TOP")).intValue(),
+					((BigDecimal) dataRow.getValue("MARGIN_LEFT")).intValue(),
+					((BigDecimal) dataRow.getValue("MARGIN_BOTTOM")).intValue(),
+					((BigDecimal) dataRow.getValue("MARGIN_RIGHT")).intValue()));
 			
-			lineBasedLayout.setHorizontalGap(((BigDecimal)dataRow.getValue("HORIZONTAL_GAP")).intValue());
-			lineBasedLayout.setVerticalGap(((BigDecimal)dataRow.getValue("VERTICAL_GAP")).intValue());
+			lineBasedLayout.setHorizontalGap(((BigDecimal) dataRow.getValue("HORIZONTAL_GAP")).intValue());
+			lineBasedLayout.setVerticalGap(((BigDecimal) dataRow.getValue("VERTICAL_GAP")).intValue());
 			lineBasedLayout.setMargins(new UIInsets(
-					((BigDecimal)dataRow.getValue("MARGIN_TOP")).intValue(),
-					((BigDecimal)dataRow.getValue("MARGIN_LEFT")).intValue(),
-					((BigDecimal)dataRow.getValue("MARGIN_BOTTOM")).intValue(),
-					((BigDecimal)dataRow.getValue("MARGIN_RIGHT")).intValue()));
+					((BigDecimal) dataRow.getValue("MARGIN_TOP")).intValue(),
+					((BigDecimal) dataRow.getValue("MARGIN_LEFT")).intValue(),
+					((BigDecimal) dataRow.getValue("MARGIN_BOTTOM")).intValue(),
+					((BigDecimal) dataRow.getValue("MARGIN_RIGHT")).intValue()));
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();

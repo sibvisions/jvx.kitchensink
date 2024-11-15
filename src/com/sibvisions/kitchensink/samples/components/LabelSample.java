@@ -15,13 +15,13 @@
  */
 package com.sibvisions.kitchensink.samples.components;
 
-import javax.rad.genui.UIDimension;
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.ui.IColor;
-import javax.rad.ui.component.ILabel;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.UIDimension;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.ui.IColor;
+import jvx.rad.ui.component.ILabel;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.Tango;
@@ -34,14 +34,14 @@ import com.sibvisions.kitchensink.samples.AbstractSample;
  */
 public class LabelSample extends AbstractSample implements ISample
 {
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Interface implementation
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Interface implementation
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
+ * {@inheritDoc}
+ */
+@Override
 	public String getCategory()
 	{
 		return "Components";

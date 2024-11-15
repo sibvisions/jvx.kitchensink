@@ -15,17 +15,17 @@
  */
 package com.sibvisions.kitchensink.samples.components;
 
-import javax.rad.genui.UIColor;
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.container.UIDesktopPanel;
-import javax.rad.genui.container.UIInternalFrame;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.genui.menu.UICheckBoxMenuItem;
-import javax.rad.genui.menu.UIMenu;
-import javax.rad.genui.menu.UIMenuBar;
-import javax.rad.genui.menu.UIMenuItem;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.UIColor;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.container.UIDesktopPanel;
+import jvx.rad.genui.container.UIInternalFrame;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.genui.menu.UICheckBoxMenuItem;
+import jvx.rad.genui.menu.UIMenu;
+import jvx.rad.genui.menu.UIMenuBar;
+import jvx.rad.genui.menu.UIMenuItem;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.samples.AbstractSample;
@@ -78,7 +78,7 @@ public class MenuBarSample extends AbstractSample implements ISample
 		UIMenu checkBoxMenu = new UIMenu("CheckBox");
 		checkBoxMenu.add(new UICheckBoxMenuItem("Check it!"));
 		checkBoxMenu.add(new UICheckBoxMenuItem("With image!"));
-		((UICheckBoxMenuItem)checkBoxMenu.getComponent(1)).setPressedImage(getImage("emblem-favorite.png"));
+		((UICheckBoxMenuItem) checkBoxMenu.getComponent(1)).setPressedImage(getImage("emblem-favorite.png"));
 		
 		UIMenu southDakotaMenu = new UIMenu("South Dakota (empty)");
 		

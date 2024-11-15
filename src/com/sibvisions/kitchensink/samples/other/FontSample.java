@@ -15,13 +15,13 @@
  */
 package com.sibvisions.kitchensink.samples.other;
 
-import javax.rad.genui.UIFont;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.ui.IColor;
-import javax.rad.ui.IFont;
-import javax.rad.ui.component.ILabel;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.UIFont;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.ui.IColor;
+import jvx.rad.ui.IFont;
+import jvx.rad.ui.component.ILabel;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.Tango;

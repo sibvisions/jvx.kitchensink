@@ -20,16 +20,16 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Random;
 
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.control.UIChart;
-import javax.rad.genui.layout.UIGridLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.datatype.BigDecimalDataType;
-import javax.rad.model.datatype.StringDataType;
-import javax.rad.model.datatype.TimestampDataType;
-import javax.rad.ui.container.IPanel;
-import javax.rad.ui.control.IChart;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.control.UIChart;
+import jvx.rad.genui.layout.UIGridLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.datatype.BigDecimalDataType;
+import jvx.rad.model.datatype.StringDataType;
+import jvx.rad.model.datatype.TimestampDataType;
+import jvx.rad.ui.container.IPanel;
+import jvx.rad.ui.control.IChart;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.samples.AbstractSample;

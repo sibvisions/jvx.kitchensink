@@ -17,19 +17,18 @@ package com.sibvisions.kitchensink.samples.containers;
 
 import java.math.BigDecimal;
 
-import javax.rad.genui.UIFont;
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.container.UIGroupPanel;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.control.UIEditor;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.IDataRow;
-import javax.rad.model.ModelException;
-import javax.rad.model.datatype.BigDecimalDataType;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.container.UIGroupPanel;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.control.UIEditor;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.IDataRow;
+import jvx.rad.model.ModelException;
+import jvx.rad.model.datatype.BigDecimalDataType;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.Tango;
@@ -78,11 +77,6 @@ public class GroupPanelSample extends AbstractSample implements ISample
 		testGroup.setLayout(new UIBorderLayout());
 		testGroup.add(createCenteredLabel("Some text.", Tango.ORANGE_1), UIBorderLayout.CENTER);
 		
-		UIGroupPanel fontGroup = new UIGroupPanel("This group has a custom font");
-		fontGroup.setFont(new UIFont("Courier", UIFont.BOLD, 14));
-		fontGroup.setLayout(new UIBorderLayout());
-		fontGroup.add(createCenteredLabel("Still some text.", Tango.PLUM_1), UIBorderLayout.CENTER);
-		
 		UIFormLayout mainLayout = new UIFormLayout();
 		
 		UIPanel main = new UIPanel();
@@ -90,8 +84,7 @@ public class GroupPanelSample extends AbstractSample implements ISample
 		main.add(simple, mainLayout.getConstraints(0, 0));
 		main.add(noText, mainLayout.getConstraints(1, 0));
 		main.add(longText, mainLayout.getConstraints(2, 0));
-		main.add(fontGroup, mainLayout.getConstraints(0, 1, -1, 1));
-		main.add(testGroup, mainLayout.getConstraints(0, 2, -1, -1));
+		main.add(testGroup, mainLayout.getConstraints(0, 1, -1, -1));
 		
 		IDataBook controlsBook = new MemDataBook();
 		controlsBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("HORIZONTAL_ALIGNMENT", new BigDecimalDataType(createHorizontalAlignmentCellEditor())));
@@ -107,8 +100,8 @@ public class GroupPanelSample extends AbstractSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			testGroup.setHorizontalAlignment(((BigDecimal)dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
-			testGroup.setVerticalAlignment(((BigDecimal)dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
+			testGroup.setHorizontalAlignment(((BigDecimal) dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
+			testGroup.setVerticalAlignment(((BigDecimal) dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();

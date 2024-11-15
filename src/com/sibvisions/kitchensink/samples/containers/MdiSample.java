@@ -15,21 +15,21 @@
  */
 package com.sibvisions.kitchensink.samples.containers;
 
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.container.UIDesktopPanel;
-import javax.rad.genui.container.UIInternalFrame;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.container.UISplitPanel;
-import javax.rad.genui.control.UIEditor;
-import javax.rad.genui.control.UITable;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.IDataRow;
-import javax.rad.model.datatype.BooleanDataType;
-import javax.rad.ui.container.IDesktopPanel;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.container.UIDesktopPanel;
+import jvx.rad.genui.container.UIInternalFrame;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.container.UISplitPanel;
+import jvx.rad.genui.control.UIEditor;
+import jvx.rad.genui.control.UITable;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.IDataRow;
+import jvx.rad.model.datatype.BooleanDataType;
+import jvx.rad.ui.container.IDesktopPanel;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.Tango;

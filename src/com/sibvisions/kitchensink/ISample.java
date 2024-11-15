@@ -15,11 +15,11 @@
  */
 package com.sibvisions.kitchensink;
 
-import javax.rad.ui.container.IPanel;
+import jvx.rad.ui.container.IPanel;
 
 /**
- * An {@link ISample} is a simple interface that is used to encapsualte the
- * different showcases of this application.
+ * An {@link ISample} is a simple interface that is used to encapsualte
+ * the different showcases of this application.
  * 
  * @author Robert Zenz
  */

@@ -17,21 +17,21 @@ package com.sibvisions.kitchensink.samples.other;
 
 import java.util.Random;
 
-import javax.rad.genui.IFontAwesome;
-import javax.rad.genui.UIImage;
-import javax.rad.genui.celleditor.UIDateCellEditor;
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.control.UIEditor;
-import javax.rad.genui.control.UITable;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.genui.menu.UIMenuItem;
-import javax.rad.genui.menu.UIPopupMenu;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.datatype.StringDataType;
-import javax.rad.model.datatype.TimestampDataType;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.IFontAwesome;
+import jvx.rad.genui.UIImage;
+import jvx.rad.genui.celleditor.UIDateCellEditor;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.control.UIEditor;
+import jvx.rad.genui.control.UITable;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.genui.menu.UIMenuItem;
+import jvx.rad.genui.menu.UIPopupMenu;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.datatype.StringDataType;
+import jvx.rad.model.datatype.TimestampDataType;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.components.NoteLabel;

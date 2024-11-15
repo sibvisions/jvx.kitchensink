@@ -17,14 +17,14 @@ package com.sibvisions.kitchensink.samples.other;
 
 import java.lang.reflect.Field;
 
-import javax.rad.genui.IFontAwesome;
-import javax.rad.genui.UIImage;
-import javax.rad.genui.component.UIIcon;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.container.UIScrollPanel;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.genui.layout.UIFlowLayout;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.IFontAwesome;
+import jvx.rad.genui.UIImage;
+import jvx.rad.genui.component.UIIcon;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.container.UIScrollPanel;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.genui.layout.UIFlowLayout;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.samples.AbstractSample;

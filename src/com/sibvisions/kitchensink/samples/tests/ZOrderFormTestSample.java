@@ -15,9 +15,9 @@
  */
 package com.sibvisions.kitchensink.samples.tests;
 
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.Tango;

@@ -17,18 +17,18 @@ package com.sibvisions.kitchensink.samples.components;
 
 import java.math.BigDecimal;
 
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.component.UITextArea;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.control.UIEditor;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.IDataRow;
-import javax.rad.model.datatype.BigDecimalDataType;
-import javax.rad.model.datatype.BooleanDataType;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.component.UITextArea;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.control.UIEditor;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.IDataRow;
+import jvx.rad.model.datatype.BigDecimalDataType;
+import jvx.rad.model.datatype.BooleanDataType;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.samples.AbstractSample;
@@ -86,10 +86,10 @@ public class TextAreaSample extends AbstractSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			textArea.setBorderVisible(((Boolean)dataRow.getValue("BORDER")).booleanValue());
-			textArea.setEditable(((Boolean)dataRow.getValue("EDITABLE")).booleanValue());
-			textArea.setHorizontalAlignment(((BigDecimal)dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
-			textArea.setVerticalAlignment(((BigDecimal)dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
+			textArea.setBorderVisible(((Boolean) dataRow.getValue("BORDER")).booleanValue());
+			textArea.setEditable(((Boolean) dataRow.getValue("EDITABLE")).booleanValue());
+			textArea.setHorizontalAlignment(((BigDecimal) dataRow.getValue("HORIZONTAL_ALIGNMENT")).intValue());
+			textArea.setVerticalAlignment(((BigDecimal) dataRow.getValue("VERTICAL_ALIGNMENT")).intValue());
 		});
 		
 		UIFormLayout controlsLayout = new UIFormLayout();

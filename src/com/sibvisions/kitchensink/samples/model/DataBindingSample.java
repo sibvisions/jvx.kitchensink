@@ -18,28 +18,29 @@ package com.sibvisions.kitchensink.samples.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.rad.genui.celleditor.UICheckBoxCellEditor;
-import javax.rad.genui.celleditor.UIChoiceCellEditor;
-import javax.rad.genui.celleditor.UILinkedCellEditor;
-import javax.rad.genui.celleditor.UITextCellEditor;
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.component.UIToggleButton;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.container.UISplitPanel;
-import javax.rad.genui.control.UIEditor;
-import javax.rad.genui.control.UITable;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.IDataRow;
-import javax.rad.model.ModelException;
-import javax.rad.model.datatype.BigDecimalDataType;
-import javax.rad.model.datatype.BooleanDataType;
-import javax.rad.model.datatype.StringDataType;
-import javax.rad.model.datatype.TimestampDataType;
-import javax.rad.model.reference.ReferenceDefinition;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.celleditor.UICheckBoxCellEditor;
+import jvx.rad.genui.celleditor.UIChoiceCellEditor;
+import jvx.rad.genui.celleditor.UIDateCellEditor;
+import jvx.rad.genui.celleditor.UILinkedCellEditor;
+import jvx.rad.genui.celleditor.UINumberCellEditor;
+import jvx.rad.genui.celleditor.UITextCellEditor;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.container.UISplitPanel;
+import jvx.rad.genui.control.UIEditor;
+import jvx.rad.genui.control.UITable;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.IDataRow;
+import jvx.rad.model.ModelException;
+import jvx.rad.model.datatype.BigDecimalDataType;
+import jvx.rad.model.datatype.BooleanDataType;
+import jvx.rad.model.datatype.StringDataType;
+import jvx.rad.model.datatype.TimestampDataType;
+import jvx.rad.model.reference.ReferenceDefinition;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.samples.AbstractSample;
@@ -112,20 +113,14 @@ public class DataBindingSample extends AbstractSample implements ISample
 		
 		IDataBook dataBook = new MemDataBook();
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("ID", new BigDecimalDataType()));
-		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("STRING", new StringDataType()));
-		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("PASSWORD", new StringDataType(new UITextCellEditor(UITextCellEditor.TEXT_PLAIN_PASSWORD))));
+		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("STRING", new StringDataType(new UITextCellEditor())));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("BOOLEAN", booleanDataType));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("CHOICE", new StringDataType(choiceCellEditor)));
-		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("DATETIME", new TimestampDataType()));
-		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("NUMBER", new BigDecimalDataType()));
+		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("DATETIME", new TimestampDataType(new UIDateCellEditor("dd.MM.yyyy"))));
+		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("NUMBER", new BigDecimalDataType(new UINumberCellEditor())));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("TYPE_ID", new BigDecimalDataType()));
 		dataBook.getRowDefinition().addColumnDefinition(new ColumnDefinition("TYPE_NAME", new StringDataType(new UILinkedCellEditor(referenceDefinition))));
 		dataBook.setName("DATABINDING");
-		
-		dataBook.getRowDefinition().getColumnDefinition("ID").setNullable(false);
-		dataBook.getRowDefinition().getColumnDefinition("BOOLEAN").setNullable(false);
-		dataBook.getRowDefinition().getColumnDefinition("STRING").setNullable(false);
-		dataBook.getRowDefinition().getColumnDefinition("PASSWORD").setNullable(false);
 		
 		dataBook.open();
 		
@@ -133,7 +128,6 @@ public class DataBindingSample extends AbstractSample implements ISample
 		dataBook.setValue("ID", BigDecimal.valueOf(1));
 		dataBook.setValue("BOOLEAN", Boolean.TRUE);
 		dataBook.setValue("STRING", "This is the actual value of the column.");
-		dataBook.setValue("PASSWORD", "Some secret.");
 		dataBook.setValue("CHOICE", null);
 		dataBook.setValue("DATETIME", new Date());
 		dataBook.setValue("TYPE_ID", BigDecimal.valueOf(1));
@@ -144,7 +138,6 @@ public class DataBindingSample extends AbstractSample implements ISample
 		dataBook.setValue("ID", BigDecimal.valueOf(2));
 		dataBook.setValue("BOOLEAN", Boolean.FALSE);
 		dataBook.setValue("STRING", "This is the second row.");
-		dataBook.setValue("PASSWORD", "Some secret.");
 		dataBook.setValue("CHOICE", "important");
 		dataBook.setValue("DATETIME", null);
 		dataBook.setValue("TYPE_ID", BigDecimal.valueOf(3));
@@ -155,6 +148,8 @@ public class DataBindingSample extends AbstractSample implements ISample
 		
 		dataBook.setSelectedRow(0);
 		
+		UITable table = new UITable(dataBook);
+		
 		UIFormLayout editorsPaneLayout = new UIFormLayout();
 		editorsPaneLayout.setNewlineCount(2);
 		
@@ -164,45 +159,20 @@ public class DataBindingSample extends AbstractSample implements ISample
 		addEditor(editorsPane, dataBook, "ID");
 		addEditor(editorsPane, dataBook, "BOOLEAN");
 		addEditor(editorsPane, dataBook, "STRING");
-		addEditor(editorsPane, dataBook, "PASSWORD");
 		addEditor(editorsPane, dataBook, "CHOICE");
 		addEditor(editorsPane, dataBook, "DATETIME");
 		addEditor(editorsPane, dataBook, "NUMBER");
 		addEditor(editorsPane, dataBook, "TYPE_ID");
 		addEditor(editorsPane, dataBook, "TYPE_NAME");
 		
-		UISplitPanel tableSplitPanel = new UISplitPanel(UISplitPanel.SPLIT_TOP_BOTTOM);
-		tableSplitPanel.setFirstComponent(new UITable(dataBook));
-		tableSplitPanel.setSecondComponent(new UITable(dataBook));
-		
 		UISplitPanel splitPanel = new UISplitPanel(UISplitPanel.SPLIT_LEFT_RIGHT);
 		splitPanel.setDividerAlignment(UISplitPanel.DIVIDER_BOTTOM_RIGHT);
-		splitPanel.setFirstComponent(tableSplitPanel);
+		splitPanel.setFirstComponent(table);
 		splitPanel.setSecondComponent(editorsPane);
-		
-		UIToggleButton readOnlyToggleButton = new UIToggleButton("Read-Only");
-		readOnlyToggleButton.eventAction().addListener((pActionEvent) ->
-		{
-			try
-			{
-				dataBook.setReadOnly(readOnlyToggleButton.isSelected());
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-		});
-		
-		UIFormLayout controlsLayout = new UIFormLayout();
-		
-		UIPanel controls = new UIPanel();
-		controls.setLayout(controlsLayout);
-		controls.add(readOnlyToggleButton, controlsLayout.getConstraints(0, 0));
 		
 		UIPanel content = new UIPanel();
 		content.setLayout(new UIBorderLayout());
 		content.add(splitPanel, UIBorderLayout.CENTER);
-		content.add(controls, UIBorderLayout.SOUTH);
 		
 		return content;
 	}
@@ -231,7 +201,8 @@ public class DataBindingSample extends AbstractSample implements ISample
 	private void addEditor(UIPanel pPanel, IDataRow pDataRow, String pColumnName) throws ModelException
 	{
 		UIEditor editor = new UIEditor(pDataRow, pColumnName);
-		editor.setPlaceholderVisible(true);
+		editor.setPlaceholder(pDataRow.getRowDefinition().getColumnDefinition(pColumnName).getLabel());
+
 		pPanel.add(new UILabel(pColumnName));
 		pPanel.add(editor);
 	}

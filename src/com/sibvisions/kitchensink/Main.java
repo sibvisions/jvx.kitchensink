@@ -15,12 +15,10 @@
  */
 package com.sibvisions.kitchensink;
 
-import javax.rad.genui.UIFactoryManager;
+import jvx.rad.genui.UIFactoryManager;
+import jvx.rad.genui.celleditor.UICheckBoxCellEditor;
+import jvx.rad.ui.IFactory;
 import javax.swing.UIManager;
-
-import com.sibvisions.rad.ui.swing.impl.SwingFactory;
-import com.sibvisions.util.log.ILogger.LogLevel;
-import com.sibvisions.util.log.LoggerFactory;
 
 /**
  * The main class.
@@ -44,13 +42,9 @@ public final class Main
 		// up everything necessary.
 		// But this way is fine for quick tests or very simple applications.
 		
-		// Configure the logger so that we see all log messages of
-		// the Kitchensink.
-		LoggerFactory.setLevel("com.sibvisions.kitchensink", LogLevel.ALL);
-		
 		try
 		{
-			Class<?> factoryClass = null;
+			Class<?> factoryClass;
 			
 			try
 			{
@@ -59,13 +53,8 @@ public final class Main
 			}
 			catch (Exception e)
 			{
-				LoggerFactory.getInstance(Main.class).info("Defaulting to SwingFactory.", e);
-				
 				factoryClass = Main.class.getClassLoader().loadClass("com.sibvisions.rad.ui.swing.impl.SwingFactory");
-			}
-			
-			if (SwingFactory.class.isAssignableFrom(factoryClass))
-			{
+				
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			}
 			
@@ -78,6 +67,9 @@ public final class Main
 			// on the UI thread of the specified technology.
 			UIFactoryManager.getFactory().invokeAndWait(() ->
 			{
+				// Register the default cell editors.
+				registerDefaultCellEditors();
+				
 				// Create the main frame.
 				KitchenSinkFrame frame = new KitchenSinkFrame();
 				frame.pack();
@@ -92,10 +84,22 @@ public final class Main
 		}
 		catch (Exception e)
 		{
-			LoggerFactory.getInstance(Main.class).error(e);
+			e.printStackTrace();
 			
 			System.exit(1);
 		}
+	}
+	
+	/**
+	 * Registers the default cell editors.
+	 */
+	private static void registerDefaultCellEditors()
+	{
+		IFactory factory =UIFactoryManager.getFactory();
+		
+		UICheckBoxCellEditor checkBoxCellEditor = new UICheckBoxCellEditor(Boolean.TRUE, Boolean.FALSE);
+		checkBoxCellEditor.setText("");
+		factory.setDefaultCellEditor(Boolean.class, checkBoxCellEditor);
 	}
 	
 }	// Main

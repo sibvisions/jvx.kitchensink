@@ -15,17 +15,17 @@
  */
 package com.sibvisions.kitchensink.samples.components;
 
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.component.UIPasswordField;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.control.UIEditor;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.IDataRow;
-import javax.rad.model.datatype.StringDataType;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.component.UIPasswordField;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.control.UIEditor;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.IDataRow;
+import jvx.rad.model.datatype.StringDataType;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.rad.model.mem.MemDataBook;
@@ -76,7 +76,7 @@ public class PasswordFieldSample implements ISample
 		{
 			IDataRow dataRow = pDataRowEvent.getChangedDataRow();
 			
-			if (!StringUtil.isEmpty((String)dataRow.getValue("MASK")))
+			if (!StringUtil.isEmpty((String) dataRow.getValue("MASK")))
 			{
 				passwordField.setEchoChar(dataRow.getValue("MASK").toString().charAt(0));
 			}

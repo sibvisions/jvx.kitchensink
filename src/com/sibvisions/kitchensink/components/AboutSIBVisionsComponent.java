@@ -15,15 +15,15 @@
  */
 package com.sibvisions.kitchensink.components;
 
-import javax.rad.genui.UIColor;
-import javax.rad.genui.UIComponent;
-import javax.rad.genui.UIFont;
-import javax.rad.genui.UIImage;
-import javax.rad.genui.component.UIIcon;
-import javax.rad.genui.component.UILabel;
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.layout.UIFormLayout;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.UIColor;
+import jvx.rad.genui.UIComponent;
+import jvx.rad.genui.UIFont;
+import jvx.rad.genui.UIImage;
+import jvx.rad.genui.component.UIIcon;
+import jvx.rad.genui.component.UILabel;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.layout.UIFormLayout;
+import jvx.rad.ui.container.IPanel;
 
 /**
  * A simple {@link UIComponent} extension which displays information about SIB

@@ -17,19 +17,19 @@ package com.sibvisions.kitchensink.samples.model;
 
 import java.math.BigDecimal;
 
-import javax.rad.genui.container.UIPanel;
-import javax.rad.genui.container.UISplitPanel;
-import javax.rad.genui.control.UITable;
-import javax.rad.genui.control.UITree;
-import javax.rad.genui.layout.UIBorderLayout;
-import javax.rad.model.ColumnDefinition;
-import javax.rad.model.IDataBook;
-import javax.rad.model.ModelException;
-import javax.rad.model.SortDefinition;
-import javax.rad.model.datatype.BigDecimalDataType;
-import javax.rad.model.datatype.StringDataType;
-import javax.rad.model.reference.ReferenceDefinition;
-import javax.rad.ui.container.IPanel;
+import jvx.rad.genui.container.UIPanel;
+import jvx.rad.genui.container.UISplitPanel;
+import jvx.rad.genui.control.UITable;
+import jvx.rad.genui.control.UITree;
+import jvx.rad.genui.layout.UIBorderLayout;
+import jvx.rad.model.ColumnDefinition;
+import jvx.rad.model.IDataBook;
+import jvx.rad.model.ModelException;
+import jvx.rad.model.SortDefinition;
+import jvx.rad.model.datatype.BigDecimalDataType;
+import jvx.rad.model.datatype.StringDataType;
+import jvx.rad.model.reference.ReferenceDefinition;
+import jvx.rad.ui.container.IPanel;
 
 import com.sibvisions.kitchensink.ISample;
 import com.sibvisions.kitchensink.samples.AbstractSample;
